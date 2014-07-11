@@ -1,0 +1,10 @@
+{
+    "application": "flaskbb",
+    "identifier": "redefined",
+    "name": "Redefined",
+    "author": "Askelon; modified by sh4nks",
+    "website": "https://github.com/Askelon/FluxBB-Redefined",
+    "license": "GPL",
+    "description": "A theme for FlaskBB based on the theme concept for FluxBB by Askelon",
+    "version": "0.1.0"
+}

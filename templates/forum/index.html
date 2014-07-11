@@ -1,0 +1,32 @@
+{% extends theme("layout.html") %}
+{% block content %}
+
+{% for category, forums in categories %}
+    {% include theme("forum/category_layout.html") %}
+{% endfor %}
+
+
+<div id="brdstats" class="clearfix">
+    <div class="box">
+        <div class="users-online col-xs-12 col-sm-12 col-md-6 pull-left">
+            <h5> Active Users</h5>
+            <p>
+                <span>There are currently {{ online_users+online_guests }} user online.</span>
+                <span>{{ online_users }} Member and {% if config["REDIS_ENABLED"] %}{{ online_guests }} Guest</span> {% endif %}
+            </p>
+        </div>
+        <div class="forum-stats col-xs-12 col-sm-12 col-md-6 pull-right text-right">
+            <h5><span></span> FluxBB Forum Statistics</h5>
+            <p>
+                <span>Threads: <strong>{{ topic_count }}</strong></span>
+                <span>Posts: <strong>{{ post_count }}</strong></span>
+                <span>Members: <strong>{{ user_count }}</strong></span>
+                <br>
+                <span>Welcome to our newest member, {% if newest_user %}<a href="{{ newest_user.url }}">{{ newest_user.username }}</a>{% else %}No users{% endif %}</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

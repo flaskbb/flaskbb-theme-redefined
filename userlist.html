@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>FluxBB Redefined</title>
+
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/entypo.css" />
+
+		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
+
+	</head>
+
+	<body id="site-forum">
+
+		<div class="container">
+
+			<header id="brdheader">
+
+				<div id="brdtitle">
+					<h1 class="forum-title">FluxBB Redefined</h1>
+					<div class="forum-desc"><p>… To work without a thought of fame or fortune, on that journey that you dream of, to the moon!</p></div>
+				</div>
+
+				<div id="brdmenu">
+
+					<div class="avatar">
+						<img src="assets/img/cyrano.jpg" alt="" />
+					</div>
+
+					<nav class="menu">
+						<h3 class="username pull-left">Cyrano <a href="edit-profile.html"><span class="edit-profile">Edit Profile</span></a></h3>
+						<ul class="nav nav-pills pull-right">
+							<li><a href="searched.html">Posted</a></li>
+							<li><a href="searched.html">New</a></li>
+							<li><a href="searched.html">Active</a></li>
+							<li><a href="searched.html">Unanswered</a></li>
+						</ul>
+					</nav>
+
+				</div>
+
+			</header>
+
+			<div id="brdwelcome" class="clearfix">
+
+				<ul class="nav nav-pills pull-left">
+					<li class="isactive"><a href="index.html">Index</a></li>
+					<li id="navuserlist"><a href="userlist.html">User list</a></li>
+					<li id="navrules"><a href="rules.html">Rules</a></li>
+					<li id="navsearch"><a href="search.html">Search</a></li>
+					<li id="navprofile"><a href="profile.html">Profile</a></li>
+					<li id="navlogout"><a href="logout.html">Logout</a></li>
+				</ul>
+			</div>
+
+			<div id="brdannounce">
+
+				<div id="alert" class="alert alert-info">
+					<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+					<h4 class="announcement"><span>Announcement</span></h4>
+					<div id="announce-block">
+						<p><a href="https://fluxbb.org/downloads/">FluxBB 1.5.4</a> and <a href="https://fluxbb.org/downloads/archive/1.4.11.html">FluxBB 1.4.11</a> released - please update your forums!</p>
+					</div>
+				</div>
+
+			</div>
+
+			<div id="brdmain">
+
+				<div id="brdtop">
+					<div class="inbox clearfix">
+						<ul class="breadcrumb">
+							<li><a href="index.php">Index</a></li>
+							<li><strong><a href="viewforum.html">FluxBB</a></strong></li>
+							<li><strong><a href="viewforum.html">Redefined</a></strong></li>
+							<li><strong><a href="viewforum.html">Posts concepts</a></strong></li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="vt" class="vtx">
+
+					<h2 class="topic-title"><span>User list</span></h2>
+
+					<div class="top-navigation clearfix">
+						<ul class="pagination pagelink pull-left">
+							<li class="disabled"><a><span class="pages-label">Pages: </span></a></li>
+							<li class="disabled"><a><strong class="item1">1</strong></a></li>
+							<li><a href="viewforum.html">2</a></li>
+							<li><a href="viewforum.html">3</a></li>
+							<li><a href="viewforum.html">…</a></li>
+							<li><a href="viewforum.html">6</a></li>
+							<li><a href="viewforum.html">7</a></li>
+							<li><a href="viewforum.html">Next</a></li>
+						</ul>
+						<ul class="nav nav-pills title-icons pull-right">
+							<li><a id="userlist-list" href="#"><span class="icon-list icon-2x"></span></a></li>
+							<li><a id="userlist-big" href="#"><span class="icon-layout icon-2x"></span></a></li>
+						</ul>
+					</div>
+
+					<div id="userlist" class="userlist clearfix">
+
+						<div class="user-search col-md-12 text-center">
+							<div class="form-inline">
+								<div class="form-group">
+									<input class="form-control" type="text" name="username" value="" size="25" maxlength="25" placeholder="Username"></label>
+								</div>
+								<div class="form-group">
+									<select class="form-control" name="show_group">
+										<option value="-1" selected="selected">All</option>
+										<option value="1">Administrators</option>
+										<option value="2">Moderators</option>
+										<option value="4">Members</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control" name="sort_by">
+										<option value="username" selected="selected">Username</option>
+										<option value="registered">Registered:</option>
+										<option value="num_posts">Number of posts</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control" name="sort_dir">
+										<option value="ASC" selected="selected">Ascending</option>
+										<option value="DESC">Descending</option>
+									</select>
+								</div>
+								<div class="form-group">
+					                            	<input class="btn btn-primary" type="submit" value="Search" />
+								</div>
+							</div>
+						</div>
+
+						<div class="user-badge col-md-3">
+							<div class="user-avatar col-md-4">
+								<img src="assets/img/christian.jpg" alt="" />
+							</div>
+							<div class="user-detail col-md-8 clearfix">
+								<div class="user-name"><h4><a href="profile.html">Christian</a></h4></div>
+								<div class="user-title"><h5>Baron de Neuvillette</h5></div>
+								<div class="user-meta">
+									<span class="user-registered">1626-10-05</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-badge col-md-3">
+							<div class="user-avatar col-md-4">
+								<img src="assets/img/cyrano.jpg" alt="" />
+							</div>
+							<div class="user-detail col-md-8 clearfix">
+								<div class="user-name"><h4><a href="profile.html">Cyrano</a></h4></div>
+								<div class="user-title"><h5>Poet, duellist, musician</h5></div>
+								<div class="user-meta">
+									<span class="user-registered">1619-03-06</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-badge col-md-3">
+							<div class="user-avatar col-md-4">
+								<img src="assets/img/deguiche.jpg" alt="" />
+							</div>
+							<div class="user-detail col-md-8 clearfix">
+								<div class="user-name"><h4><a href="profile.html">De Guiche</a></h4></div>
+								<div class="user-title"><h5>Maréchal de France</h5></div>
+								<div class="user-meta">
+									<span class="user-registered">1604-07-12</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-badge col-md-3">
+							<div class="user-avatar col-md-4">
+								<img src="assets/img/lebret.jpg" alt="" />
+							</div>
+							<div class="user-detail col-md-8 clearfix">
+								<div class="user-name"><h4><a href="profile.html">Le Bret</a></h4></div>
+								<div class="user-title"><h5>Mousquetaire du Roi</h5></div>
+								<div class="user-meta">
+									<span class="user-registered">1618-02-24</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-badge col-md-3">
+							<div class="user-avatar col-md-4">
+								<img src="assets/img/roxane.jpg" alt="" />
+							</div>
+							<div class="user-detail col-md-8 clearfix">
+								<div class="user-name"><h4><a href="profile.html">Roxane</a></h4></div>
+								<div class="user-title"><h5>Précieuse</h5></div>
+								<div class="user-meta">
+									<span class="user-registered">1622-08-14</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-badge col-md-3">
+							<div class="user-avatar col-md-4">
+								<img src="assets/img/valvert.jpg" alt="" />
+							</div>
+							<div class="user-detail col-md-8 clearfix">
+								<div class="user-name"><h4><a href="profile.html">Valvert</a></h4></div>
+								<div class="user-title"><h5>Vicomte</h5></div>
+								<div class="user-meta">
+									<span class="user-registered">1620-06-30</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div id="brdbottom">
+						<div class="inbox">
+							<div class="pagepost clearfix">
+								<ul class="pagination pagelink pull-left">
+									<li class="disabled"><a><span class="pages-label">Pages: </span></a></li>
+									<li class="disabled"><a><strong class="item1">1</strong></a></li>
+									<li><a href="viewforum.html">3</a></li>
+									<li><a href="viewforum.html">…</a></li>
+									<li><a href="viewforum.html">6</a></li>
+									<li><a href="viewforum.html">7</a></li>
+									<li><a href="viewforum.html">Next</a></li>
+								</ul>
+							</div>
+							<ul class="breadcrumb">
+								<li><a href="index.php">Index</a></li>
+								<li><strong><a href="viewforum.html">Core development</a></strong></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<footer id="brdfooter" class="clearfix">
+
+				<div id="brdfooternav" class="pull-left">
+
+					<form id="qjump" class="form-inline" method="get" action="viewforum.html">
+						<label for="id">Jump to</label>
+						<div class="form-group">
+							<select id="id" name="id" class="form-control">
+								<optgroup label="FluxBB">
+									<option value="1">Announcements</option>
+									<option value="14">FluxBB discussion</option>
+									<option value="30">Core development</option>
+									<option value="9">Feature requests</option>
+									<option value="33">Bugs &gt;&gt;&gt;</option>
+									<option value="13">Show off</option>
+								</optgroup>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="form-control" value=" Go " />
+						</div>
+					</form>
+
+				</div>
+
+				<div class="pull-right">
+					<p id="feedlinks"><span class="atom"><a href="#">Atom active topics feed</a></span></p>
+					<p id="poweredby">Powered by <a href="http://fluxbb.org/">FluxBB</a> 1.5.3</p>
+				</div>
+
+			</footer>
+
+		</div>
+
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		(function($) {
+			$('.tip').tooltip({
+				container: 'body',
+				placement: 'bottom'
+			});
+			$('#userlist-big').on('click', function(e) {
+				$('.user-badge').removeClass('col-md-3 col-md-12 badge-list').addClass('col-md-3');
+				$('.user-avatar').removeClass('col-md-4 col-md-1').addClass('col-md-4');
+				$('.user-detail').removeClass('col-md-8 col-md-11').addClass('col-md-8');
+				$('.user-name, .user-title, .user-meta').removeClass('col-md-4');
+				e.preventDefault();
+			});
+			$('#userlist-list').on('click', function(e) {
+				$('.user-badge').removeClass('col-md-3 col-md-12 badge-list').addClass('col-md-12 badge-list');
+				$('.user-avatar').removeClass('col-md-4 col-md-1').addClass('col-md-1');
+				$('.user-detail').removeClass('col-md-8 col-md-11').addClass('col-md-11');
+				$('.user-name, .user-title, .user-meta').addClass('col-md-4');
+				e.preventDefault();
+			});
+		})(jQuery);
+		</script>
+
+	</body>
+
+</html>

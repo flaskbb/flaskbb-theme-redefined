@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+        {% block title %}
+            {%- if not page_title -%}
+                {{ flaskbb_config["PROJECT_TITLE"] }} - {{ flaskbb_config["PROJECT_SUBTITLE"] }}
+            {%- else -%}
+                {{ page_title }} - {{ flaskbb_config["PROJECT_TITLE"] }}
+            {%- endif -%}
+        {% endblock %}
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="FlaskBB is a forum software written in Flask">
+        <meta name="author" content="FlaskBB Team">
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        {% block css %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ theme_static('style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" >
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/code.css') }}">
+        {% endblock %}
+
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
+
+    </head>
+
+    <body id="site-forum">
+        <div class="container">
+            <header id="brdheader">
+
+                <div id="brdtitle">
+                    <h1 class="forum-title">{{ flaskbb_config["PROJECT_TITLE"] }}</h1>
+                    <div class="forum-desc"><p>{{ flaskbb_config["PROJECT_SUBTITLE"] }}</p></div>
+                </div>
+
+                <div id="brdmenu">
+
+                    <div class="avatar">
+                        <img src="assets/img/cyrano.jpg" alt="" />
+                    </div>
+
+                    <nav class="menu">
+                        <h3 class="username pull-left">JohnDoe <a href="edit-profile.html"><span class="edit-profile">Edit Profile</span></a></h3>
+
+
+
+                        <ul class="nav nav-pills pull-right">
+                            <li><a href="searched.html">Posted</a></li>
+                            <li><a href="searched.html">New</a></li>
+                            <li><a href="searched.html">Active</a></li>
+                            <li><a href="searched.html">Unanswered</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </header>
+
+        {% block navigation %}
+        {%- from theme("macros.html") import topnav with context -%}
+        <!-- Navigation -->
+
+            <div id="brdwelcome" class="clearfix">
+
+                <ul class="nav nav-pills pull-left">
+                    {{ emit_event("before-first-navigation-element") | safe }}
+
+                    {{ topnav(endpoint='forum.index', name='Index', icon='fa fa-comment', active=active_forum_nav) }}
+                    {{ topnav(endpoint='forum.memberlist', name='User list', icon='fa fa-user', id="navuserlist") }}
+                    {{ topnav(endpoint='forum.search', name='Search', icon='fa fa-search') }}
+
+                    {% if current_user and current_user.is_authenticated() %}
+
+                    {#
+                        <a class="btn btn-primary" href="{{ url_for('user.profile', username=current_user.username) }}">
+                            <span class="fa fa-user"></span> {{ current_user.username }}
+                        </a>
+
+                        {{ topnav(endpoint="forum.topictracker", name="Topic Tracker", icon="fa fa-book") }}
+
+                        {% if current_user|is_admin_or_moderator %}
+                            <li><a href="{{ url_for('management.overview') }}"><span class="fa fa-cog"></span> Management</a></li>
+                        {% endif %}
+
+                    #}
+
+                        {{ topnav(endpoint="auth.logout", name="Logout", icon="fa fa-power-off") }}
+
+                    {% endif %}
+
+                    {{ emit_event("after-last-navigation-element") | safe }}
+                </ul>
+            </div>
+
+            {#
+                        <div class="btn-group navbar-btn navbar-right">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-envelope"></span> <span class="badge">{{ current_user.pm_unread }}</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url_for('user.inbox') }}"><span class="fa fa-envelope"></span> Inbox</a></li>
+                                <li><a href="{{ url_for('user.new_message') }}"><span class="fa fa-pencil"></span> New Message</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="btn-group navbar-btn navbar-right">
+                            <a class="btn btn-primary" href="{{ url_for('auth.login') }}">
+                                <span class="fa fa-user"></span> Login
+                            </a>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                                <li><a href="{{ url_for('auth.forgot_password') }}">Reset Password</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+            #}
+            {% endblock %}
+
+
+            {% block messages %}
+                {% include theme('flashed_messages.html') %}
+            {% endblock %}
+
+            {% block content %}
+            {% endblock %}
+
+            <footer id="brdfooter" class="clearfix">
+
+                <div id="brdfooternav" class="pull-left">
+
+                    <form id="qjump" class="form-inline" method="get" action="viewforum.php">
+                        <label for="id">Jump to</label>
+                        <div class="form-group">
+                            <select id="id" name="id" class="form-control">
+                                <optgroup label="FluxBB">
+                                    <option value="1">Announcements</option>
+                                    <option value="14">FluxBB discussion</option>
+                                    <option value="30">Core development</option>
+                                    <option value="9">Feature requests</option>
+                                    <option value="33">Bugs &gt;&gt;&gt;</option>
+                                    <option value="13">Show off</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="form-control" value=" Go " accesskey="g" />
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="pull-right">
+                    <p id="feedlinks"><span class="atom"><a href="#">Atom active topics feed</a></span></p>
+                    <p id="poweredby">Powered by <a href="http://fluxbb.org/">FluxBB</a> 1.5.3</p>
+                </div>
+
+            </footer>
+
+        </div>
+
+        {% block javascript %}
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        {% endblock %}
+
+        {% block scripts %}
+        {% endblock %}
+
+    </body>
+
+</html>

@@ -1,0 +1,85 @@
+<div id="brdwrapper">
+
+    <div id="idx1" class="idx">
+
+        <h2 class="category-title">{{ category.title }} <a id="idxpend-1" class="idxpend pull-right" href="{{ category.url }}"><span class="xpend"></span></a></h2>
+
+        <div class="row idx-header">
+            <div class="col-md-6 col-sm-6 col-xs-6">Forum</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Topics</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Posts</div>
+            <div class="col-md-4 col-sm-4 col-xs-4">Last post</div>
+        </div>
+        {% for forum, forumsread in forums %}
+
+        {% if forum.external %}
+
+
+
+        <div class="row idx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="idx-icon idx-icon-read pull-left"></div>
+                <div class="tclcon">
+                    <h4 class="forum-title"><span class="redirtext">Link to:</span> <a href="{{ forum.url }}">{{ forum.title }}</a></h4>
+                    <div class="forum-description">{{ forum.description|markup|safe }}</div>
+                </div>
+            </div>
+            <div class="forum-topics col-md-1 col-sm-1 col-xs-1 ">-</div>
+            <div class="forum-views col-md-1 col-sm-1 col-xs-1 ">-</div>
+            <div class="forum-date col-md-4 col-sm-4 col-xs-4 ">- - -</div>
+        </div>
+
+
+
+
+        {% else %}
+        <div class="row idx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+
+
+            {% if forum.locked %}
+                <span class="idx-icon idx-icon-lock"></span>
+            {% elif forum|forum_is_unread(forumsread, current_user) %}
+                <div class="idx-icon idx-icon-unread pull-left"></div>
+            {% else %}
+                <div class="idx-icon idx-icon-read pull-left"></div>
+            {% endif %}
+
+
+
+                <div class="tclcon">
+                    <h4 class="forum-title"><a href="{{ forum.url }}">{{ forum.title }}</a></h4>
+                    <div class="forum-description">{{ forum.description|markup|safe }}</div>
+                    <p class="moderator-list">
+                        (<em>Moderated by</em> <a href="#">Cyrano</a>, <a href="#">Cyrano</a>)
+                    </p>
+                </div>
+            </div>
+            <div class="forum-topics col-md-1 col-sm-1 col-xs-1">{{ forum.topic_count }}</div>
+            <div class="forum-views col-md-1 col-sm-1 col-xs-1">{{ forum.post_count }}</div>
+
+            <div class="forum-date col-md-4 col-sm-4 col-xs-4">
+                {% if forum.last_post_id %}
+                <a href="{{ forum.last_post.url }}" title="{{ forum.last_post.topic.title }}">
+                    <strong>{{ forum.last_post.topic.title|crop_title }}</strong>
+                </a>
+                at {{ forum.last_post.date_created|time_since }}
+
+                    <span class="byuser">by
+                        {% if forum.last_post.user_id %}
+                            <a href="{{ url_for('user.profile', username=forum.last_post.user.username) }}">{{ forum.last_post.user.username }}</a>
+                        {% else %}
+                            {{ forum.last_post.username }}
+                        {% endif %}
+                    </span>
+
+                {% else %}
+                No posts
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
