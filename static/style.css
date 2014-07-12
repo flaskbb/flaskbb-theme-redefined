@@ -43,6 +43,12 @@ a, a:hover, a:focus, a:active {
 	text-decoration: none;
 }
 
+
+.profile-link {
+	color: #fff;
+}
+
+
 /*
  * BRDHEADER
  */
@@ -329,13 +335,16 @@ a, a:hover, a:focus, a:active {
 	margin: 0;
 }
 
-.idx .idx-content .forum-title .byuser,
-.vfx .vfx-content .topic-title .byuser,
+.idx .idx-content .forum-title .byuser, .byuserdate,
+.vfx .vfx-content .topic-title .byuser, .byuserdate,
 .idx .idx-content .forum-title .pagestext,
 .vfx .vfx-content .topic-title .pagestext {
 	font-weight: normal;
 }
 
+.byuserdate {
+	display: block;
+}
 
 /*
  * BRDMAIN IDX
@@ -408,7 +417,7 @@ a, a:hover, a:focus, a:active {
 
 .idx .forum-date {
     font-size: 0.9em;
-    padding-top: 18px;
+    padding-top: 7px;
 }
 
 
@@ -703,7 +712,7 @@ a, a:hover, a:focus, a:active {
 }
 
 .post-signature {
-	
+
 }
 
 .post-signature p {
@@ -858,6 +867,8 @@ a, a:hover, a:focus, a:active {
 /*
  * BRDPROFILE
  */
+
+
 
 /* Widget */
 

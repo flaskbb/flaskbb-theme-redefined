@@ -157,7 +157,7 @@
 
 
 {% macro topnav(endpoint, name, id='', icon='', active=False) %}
-<li {% if id %}id={{id}}{% endif %} {% if endpoint == request.endpoint or active == True %}class="isactive"{% endif %}>
+<li {% if id %}id={{id}}{% endif %} {% if endpoint == request.endpoint or active == True %}class="active"{% endif %}>
     <a href={{ url_for(endpoint) }}>
         {% if icon %}<i class="{{ icon }}"></i> {% endif %}{{ name }}
     </a>
