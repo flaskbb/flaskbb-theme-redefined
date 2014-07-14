@@ -20,6 +20,7 @@
         {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ theme_static('style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ theme_static('assets/css/entypo.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" >
         <link rel="stylesheet" href="{{ url_for('static', filename='css/code.css') }}">
         {% endblock %}
@@ -49,7 +50,7 @@
                     <nav class="menu">
 
                         <h3 class="username pull-left">
-                            <a style="color: #fff" href="{{ url_for('user.profile', username=current_user.username) }}">{{ current_user.username }}</a>
+                            <a href="{{ url_for('user.profile', username=current_user.username) }}">{{ current_user.username }}</a>
                             <a href="{{ url_for('user.settings') }}"><span class="edit-profile">Settings</span></a>
                         </h3>
 
@@ -74,8 +75,6 @@
 
             </header>
 
-        <!-- Navigation -->
-
             <div id="brdwelcome" class="clearfix">
 
                 <ul class="nav nav-pills pull-left">
@@ -99,22 +98,6 @@
                 </ul>
             </div>
 
-            {#
-                    {% else %}
-                        <div class="btn-group navbar-btn navbar-right">
-                            <a class="btn btn-primary" href="{{ url_for('auth.login') }}">
-                                <span class="fa fa-user"></span> Login
-                            </a>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-                                <li><a href="{{ url_for('auth.forgot_password') }}">Reset Password</a></li>
-                            </ul>
-                        </div>
-                    {% endif %}
-            #}
             {% endblock %}
 
 

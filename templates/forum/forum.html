@@ -5,109 +5,140 @@
 {% block content %}
 {% from theme('macros.html') import render_pagination, topic_pages %}
 
-<ol class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li><a href="{{ forum.category.url }}">{{ forum.category.title }}</a></li>
-    <li class="active">{{ forum.title }}</li>
-</ol>
+<div id="brdmain">
 
-<div class="pull-left" style="padding-bottom: 10px">
-    {{ render_pagination(topics, forum.url) }}
-</div> <!-- end span pagination -->
+    <!-- Top -->
+    <div id="brdtop">
+        <div class="inbox clearfix">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ forum.category.url }}">{{ forum.category.title }}</a></li>
+                <li class="active">{{ forum.title }}</li>
+            </ul>
 
-{% if current_user|post_topic(forum) %}
-<div class="pull-right" style="padding-bottom: 10px">
-    <div class="btn-group">
-        <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
-            <span class="fa fa-check"></span> Mark as Read
-        </a>
+            <div class="pagepost clearfix">
+                {{ render_pagination(topics, forum.url) }}
 
-        {% if forum.locked %}
-        <span class="btn btn-primary">
-            <span class="fa fa-lock"></span> Locked
-        </span>
-        {% else %}
-        <a href="{{ url_for('forum.new_topic', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-primary">
-            <span class="fa fa-pencil"></span> New Topic
-        </a>
-        {% endif %}
+                {% if current_user|post_topic(forum) %}
 
-    </div>
-</div>
-{% endif %}
+                <div class="btn-group postlink pull-right">
+                    <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
+                        <span class="fa fa-check"></span> Mark as Read
+                    </a>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th colspan="5">
-                {{ forum.title }}
-            </th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td colspan="2">Topic</td>
-
-            <td>Posts</td>
-
-            <td>Views</td>
-
-            <td>Last Post</td>
-        </tr>
-
-        {% for topic, topicread in topics.items %}
-        <tr>
-            <td width="4%">
-            {% if topic.locked %}
-                <span class="fa fa-locked" style="font-size: 2em"></span>
-            {% else %}
-                {% if topic|topic_is_unread(topicread, current_user, forumsread) %}
-                    <span class="fa fa-comment" style="font-size: 2em"></span>
-                {% else %}
-                    <span class="fa fa-comment-o" style="font-size: 2em"></span>
-                {% endif %}
-            {% endif %}
-
-            </td>
-            <td>
-                <div>
-                    <a href="{{ topic.url }}">{{ topic.title }}</a>
-                    <!-- Topic Pagination -->
-                    {{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}
-                    <br />
-                    {% if topic.user_id %}
-                    <small>by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></small>
+                    {% if forum.locked %}
+                    <span class="btn btn-primary">
+                        <span class="fa fa-lock"></span> Locked
+                    </span>
                     {% else %}
-                    <small>by {{ topic.username }}</small>
+
+                    <a href="{{ url_for('forum.new_topic', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-primary">
+                        <span class="fa fa-pencil"></span> New Topic
+                    </a>
+
                     {% endif %}
                 </div>
-            </td>
-            <td>
-                {{ topic.post_count }}
-            </td>
-            <td>
-                {{ topic.views }}
-            </td>
-            <td>
-                <a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a><br />
 
-                {% if topic.last_post.user_id %}
-                <small>by <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a></small>
-                {% else %}
-                <small>{{ topic.last_post.username }}</small>
                 {% endif %}
-            </td>
-        </tr>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Middle -->
+    <div id="vf" class="vfx">
+
+        <h2 class="forum-title"><span>{{ forum.title }}</span></h2>
+
+        <div class="row vfx-header">
+            <div class="col-md-6 col-sm-6 col-xs-6">Topic</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Replies</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Views</div>
+            <div class="col-md-4 col-sm-4 col-xs-4">Last post</div>
+        </div>
+
+        {% for topic, topicread in topics.items %}
+
+        <div class="row vfx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+            {% if topic.locked %}
+                <div class="vfx-icon vfx-icon-locked pull-left"></div>
+            {% else %}
+
+            {% if topic|topic_is_unread(topicread, current_user, forumsread) %}
+                <div class="vfx-icon vfx-icon-unread pull-left"></div>
+            {% else %}
+                <div class="vfx-icon vfx-icon-read pull-left"></div>
+            {% endif %}
+
+            {% endif %}
+
+                <h4 class="topic-title">
+                    <a href="{{ topic.url }}">{{ topic.title }}</a>
+                    <span class="byuser">by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></span>
+                </h4>
+            </div>
+            <span class="pagestext">{{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}</span>
+
+            <div class="topic-replies col-md-1 col-sm-1 col-xs-1">{{ topic.post_count }}</div>
+            <div class="topic-views col-md-1 col-sm-1 col-xs-1">{{ topic.views }}</div>
+            <div class="topic-last-post col-md-4 col-sm-4 col-xs-4"><a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a>
+                <span class="byuser">
+                {% if topic.last_post.user_id %}
+                    by <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a>
+                {% else %}
+                    by {{ topic.last_post.username }}
+                {% endif %}
+                </span>
+            </div>
+        </div>
         {% else %}
-        <tr>
-            <td colspan="5">
-                No Topics so far.
-            </td>
-        </tr>
+
+        <div class="row vfx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">No Topics.</div>
+            <div class="topic-replies col-md-1 col-sm-1 col-xs-1">-</div>
+            <div class="topic-views col-md-1 col-sm-1 col-xs-1">-</div>
+            <div class="topic-last-post col-md-4 col-sm-4 col-xs-4">-</div>
+        </div>
+
         {% endfor %}
+    </div>
 
-    </tbody>
-</table>
+    <!-- Bottom -->
+    <div id="brdbottom">
+        <div class="inbox">
+            <div class="pagepost clearfix">
+                {{ render_pagination(topics, forum.url) }}
 
+                {% if current_user|post_topic(forum) %}
+
+                <div class="btn-group postlink pull-right">
+                    <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
+                        <span class="fa fa-check"></span> Mark as Read
+                    </a>
+
+                    {% if forum.locked %}
+                    <span class="btn btn-primary">
+                        <span class="fa fa-lock"></span> Locked
+                    </span>
+                    {% else %}
+
+                    <a href="{{ url_for('forum.new_topic', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-primary">
+                        <span class="fa fa-pencil"></span> New Topic
+                    </a>
+
+                    {% endif %}
+                </div>
+
+                {% endif %}
+            </div>
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ forum.category.url }}">{{ forum.category.title }}</a></li>
+                <li class="active">{{ forum.title }}</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

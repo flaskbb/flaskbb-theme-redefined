@@ -16,7 +16,7 @@
 
         <div class="row idx-content">
             <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="idx-icon idx-icon-read pull-left"></div>
+                <div class="idx-icon idx-icon-link pull-left"></div>
                 <div class="tclcon">
                     <h4 class="forum-title"><span class="redirtext">Link to:</span> <a href="{{ forum.url }}">{{ forum.title }}</a></h4>
                     <div class="forum-description">{{ forum.description|markup|safe }}</div>
@@ -24,7 +24,7 @@
             </div>
             <div class="forum-topics col-md-1 col-sm-1 col-xs-1 ">-</div>
             <div class="forum-views col-md-1 col-sm-1 col-xs-1 ">-</div>
-            <div class="forum-date col-md-4 col-sm-4 col-xs-4 ">- - -</div>
+            <div class="forum-views col-md-4 col-sm-4 col-xs-4 ">- - -</div>
         </div>
 
         {% else %}
@@ -34,7 +34,7 @@
 
 
             {% if forum.locked %}
-                <div class="idx-icon idx-icon-lock pull-left"></div>
+                <div class="idx-icon idx-icon-locked pull-left"></div>
             {% elif forum|forum_is_unread(forumsread, current_user) %}
                 <div class="idx-icon idx-icon-unread pull-left"></div>
             {% else %}

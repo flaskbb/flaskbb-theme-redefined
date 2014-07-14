@@ -8,8 +8,8 @@
     <h2>Login</h2>
     <hr>
     {{ form.hidden_tag() }}
-    {{ horizontal_field(form.login)}}
-    {{ horizontal_field(form.password)}}
+    {{ horizontal_field(form.login, label_class="col-sm-4")}}
+    {{ horizontal_field(form.password, label_class="col-sm-4")}}
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
@@ -22,10 +22,19 @@
     </div>
 
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
+        <div class="col-sm-offset-3 col-sm-4">
             <button type="submit" class="btn btn-success">Login</button>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-4">
+            <a class="pull-left" href="{{ url_for('auth.register') }}"><small>Not a member yet?</small></a>
+            <a class="pull-right" href="{{ url_for('auth.forgot_password') }}"><small>Forgot Password?</small></a>
+        </div>
+    </div>
 </form>
+
+
 
 {% endblock %}

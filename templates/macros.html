@@ -133,7 +133,7 @@
     {% else %}
         {{ field.label(class="col-sm-3 control-label") }}
     {% endif %}
-    <div class="col-sm-9">
+    <div class="col-sm-4">
 
     {%- if kwargs['required'] or field.flags.required -%}
         {% if label_text %}
@@ -173,8 +173,8 @@
 
 
 {% macro render_pagination(page_obj, url) %}
-<ul class="pagination" style="margin: 0; float:right">
-    <li><span class="pages-label">Pages: </span></li>
+<ul class="pagination pagelink pull-left">
+    <li class="disabled"><a href="#"><span class="pages-label">Pages: </span></a></li>
     {%- for page in page_obj.iter_pages() %}
         {% if page %}
             {% if page != page_obj.page %}
