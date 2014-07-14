@@ -2,49 +2,108 @@
 
 {% extends theme("layout.html") %}
 {% block content %}
-{% from theme('macros.html') import render_pagination, group_field %}
+{% from theme('macros.html') import render_topic_pagination, group_field %}
 
-<ul class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li class="active">Memberlist</li>
-</ul>
+<div id="brdmain">
 
-<div class="pull-left" style="padding-bottom: 10px">
-    {{ render_pagination(users, url_for('forum.memberlist')) }}
-</div><!-- /.col-pull-left -->
-<div class="pull-right" style="padding-bottom: 10px">
-  <form role="form" method="post">
-      <div class="input-group">
+  <div id="brdtop">
+    <div class="inbox clearfix">
+      <ul class="breadcrumb">
+          <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+          <li class="active">Memberlist</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="vt" class="vtx">
+
+    <h2 class="topic-title"><span>User list</span></h2>
+
+    <div class="top-navigation clearfix">
+        {{ render_topic_pagination(users, url_for('forum.memberlist')) }}
+
+
+      <ul class="nav nav-pills title-icons pull-right">
+        <li><a id="userlist-list" href="#"><span class="fa fa-list"></span></a></li>
+        <li><a id="userlist-big" href="#"><span class="fa fa-th-large"></span></a></li>
+      </ul>
+    </div>
+
+    <div id="userlist" class="userlist clearfix">
+
+      <div class="user-search col-md-12 text-center">
+        <form class="form-inline">
           {{ search_form.hidden_tag() }}
-          {{ group_field(search_form.search_query) }}
-          <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit">Search</button>
-          </span>
+          <div class="form-group">
+            {{ group_field(search_form.search_query) }}
+          </div>
+          <div class="form-group">
+             <input class="btn btn-primary" type="submit" value="Search" />
+          </div>
+        </form>
       </div>
-  </form>
+
+
+      {% for user in users.items %}
+      <div class="user-badge col-md-3">
+        <div class="user-avatar col-md-4">
+          {% if user.avatar %}
+          <img src="{{ user.avatar }}" alt="" />
+          {% endif %}
+        </div>
+        <div class="user-detail col-md-8 clearfix">
+          <div class="user-name"><h4><a href="{{ user.url }}">{{ user.username }}</a></h4></div>
+          <div class="user-title"><h5>{{ user.primary_group.name }}</h5></div>
+          <div class="user-meta">
+            <span class="user-registered">{{ user.date_joined|format_date('%b %d %Y') }}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div> <!-- userlist -->
+  </div> <!-- vt/vtx -->
+
+  <div id="brdbottom">
+    <div class="inbox">
+      <div class="pagepost clearfix">
+
+        {{ render_topic_pagination(users, url_for('forum.memberlist')) }}
+
+      </div>
+
+      <ul class="breadcrumb">
+          <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+          <li class="active">Memberlist</li>
+      </ul>
+    </div>
+  </div>
+
 </div>
+{% endblock %}
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>Posts</th>
-            <th>Date registered</th>
-            <th>Group</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users.items %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td><a href="{{ user.url }}">{{ user.username }}</a></td>
-            <td>{{ user.post_count }}</td>
-            <td>{{ user.date_joined|format_date('%b %d %Y') }}</td>
-            <td>{{ user.primary_group.name }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+{% block javascript %}
+{{ super() }}
+    <script type="text/javascript">
+    (function($) {
+      $('.tip').tooltip({
+        container: 'body',
+        placement: 'bottom'
+      });
+      $('#userlist-big').on('click', function(e) {
+        $('.user-badge').removeClass('col-md-3 col-md-12 badge-list').addClass('col-md-3');
+        $('.user-avatar').removeClass('col-md-4 col-md-1').addClass('col-md-4');
+        $('.user-detail').removeClass('col-md-8 col-md-11').addClass('col-md-8');
+        $('.user-name, .user-title, .user-meta').removeClass('col-md-4');
+        e.preventDefault();
+      });
+      $('#userlist-list').on('click', function(e) {
+        $('.user-badge').removeClass('col-md-3 col-md-12 badge-list').addClass('col-md-12 badge-list');
+        $('.user-avatar').removeClass('col-md-4 col-md-1').addClass('col-md-1');
+        $('.user-detail').removeClass('col-md-8 col-md-11').addClass('col-md-11');
+        $('.user-name, .user-title, .user-meta').addClass('col-md-4');
+        e.preventDefault();
+      });
+    })(jQuery);
+    </script>
 {% endblock %}

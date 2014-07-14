@@ -137,7 +137,7 @@
 									</select>
 								</div>
 								<div class="form-group">
-					                            	<input class="btn btn-primary" type="submit" value="Search" />
+					                 <input class="btn btn-primary" type="submit" value="Search" />
 								</div>
 							</div>
 						</div>
@@ -154,72 +154,6 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="user-badge col-md-3">
-							<div class="user-avatar col-md-4">
-								<img src="assets/img/cyrano.jpg" alt="" />
-							</div>
-							<div class="user-detail col-md-8 clearfix">
-								<div class="user-name"><h4><a href="profile.html">Cyrano</a></h4></div>
-								<div class="user-title"><h5>Poet, duellist, musician</h5></div>
-								<div class="user-meta">
-									<span class="user-registered">1619-03-06</span>
-								</div>
-							</div>
-						</div>
-
-						<div class="user-badge col-md-3">
-							<div class="user-avatar col-md-4">
-								<img src="assets/img/deguiche.jpg" alt="" />
-							</div>
-							<div class="user-detail col-md-8 clearfix">
-								<div class="user-name"><h4><a href="profile.html">De Guiche</a></h4></div>
-								<div class="user-title"><h5>Maréchal de France</h5></div>
-								<div class="user-meta">
-									<span class="user-registered">1604-07-12</span>
-								</div>
-							</div>
-						</div>
-
-						<div class="user-badge col-md-3">
-							<div class="user-avatar col-md-4">
-								<img src="assets/img/lebret.jpg" alt="" />
-							</div>
-							<div class="user-detail col-md-8 clearfix">
-								<div class="user-name"><h4><a href="profile.html">Le Bret</a></h4></div>
-								<div class="user-title"><h5>Mousquetaire du Roi</h5></div>
-								<div class="user-meta">
-									<span class="user-registered">1618-02-24</span>
-								</div>
-							</div>
-						</div>
-
-						<div class="user-badge col-md-3">
-							<div class="user-avatar col-md-4">
-								<img src="assets/img/roxane.jpg" alt="" />
-							</div>
-							<div class="user-detail col-md-8 clearfix">
-								<div class="user-name"><h4><a href="profile.html">Roxane</a></h4></div>
-								<div class="user-title"><h5>Précieuse</h5></div>
-								<div class="user-meta">
-									<span class="user-registered">1622-08-14</span>
-								</div>
-							</div>
-						</div>
-
-						<div class="user-badge col-md-3">
-							<div class="user-avatar col-md-4">
-								<img src="assets/img/valvert.jpg" alt="" />
-							</div>
-							<div class="user-detail col-md-8 clearfix">
-								<div class="user-name"><h4><a href="profile.html">Valvert</a></h4></div>
-								<div class="user-title"><h5>Vicomte</h5></div>
-								<div class="user-meta">
-									<span class="user-registered">1620-06-30</span>
-								</div>
-							</div>
-						</div>
-
 					</div>
 
 					<div id="brdbottom">
@@ -282,28 +216,7 @@
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-		(function($) {
-			$('.tip').tooltip({
-				container: 'body',
-				placement: 'bottom'
-			});
-			$('#userlist-big').on('click', function(e) {
-				$('.user-badge').removeClass('col-md-3 col-md-12 badge-list').addClass('col-md-3');
-				$('.user-avatar').removeClass('col-md-4 col-md-1').addClass('col-md-4');
-				$('.user-detail').removeClass('col-md-8 col-md-11').addClass('col-md-8');
-				$('.user-name, .user-title, .user-meta').removeClass('col-md-4');
-				e.preventDefault();
-			});
-			$('#userlist-list').on('click', function(e) {
-				$('.user-badge').removeClass('col-md-3 col-md-12 badge-list').addClass('col-md-12 badge-list');
-				$('.user-avatar').removeClass('col-md-4 col-md-1').addClass('col-md-1');
-				$('.user-detail').removeClass('col-md-8 col-md-11').addClass('col-md-11');
-				$('.user-name, .user-title, .user-meta').addClass('col-md-4');
-				e.preventDefault();
-			});
-		})(jQuery);
-		</script>
+
 
 	</body>
 

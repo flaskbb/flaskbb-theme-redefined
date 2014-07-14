@@ -481,7 +481,7 @@ a, a:hover, a:focus, a:active {
 }
 
 .vfx .vfx-content .topic-title .topic-icon {
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 2em;
 	line-height: 1em;
 	margin-right: 0.25em;
@@ -598,7 +598,7 @@ a, a:hover, a:focus, a:active {
  */
 
 .vtx .topic-title {
-	background: url(assets/img/idx-header.jpg) center top no-repeat;
+	background: url(./idx-header.jpg) center top no-repeat;
 	border: 1px solid #cad7e1;
 	border-radius: 0.15em 0.15em 0 0;
 	color: #fff;
@@ -611,6 +611,11 @@ a, a:hover, a:focus, a:active {
 	font-size: 1.5em;
 	line-height: 1em;
 	margin-right: 0.5em;
+}
+
+.title-icons {
+	padding-top: 0.75em;
+	line-height: 5em;
 }
 
 .vtx .topic-title .title-icons a {
