@@ -3,197 +3,285 @@
 {% set active_forum_nav=True %}
 
 {% block content %}
-{% from theme('macros.html') import render_pagination, form_field %}
+{% from theme('macros.html') import render_pagination, render_topic_pagination, render_quickreply %}
 
-<ol class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li><a href="{{ topic.forum.category.url }}">{{ topic.forum.category.title }}</a></li>
-    <li><a href="{{ topic.forum.url }}">{{ topic.forum.title }}</a></li>
-    <li class="active">{{ topic.title }}</li>
-</ol>
 
-<div class="pull-left" style="padding-bottom: 10px">
-    {{ render_pagination(posts, topic.url) }}
-</div> <!-- end span pagination -->
+<div id="brdmain">
 
-<div class="pull-right" style="padding-bottom: 10px">
-    <div class="btn btn-group">
-    {% if current_user|delete_topic(topic.first_post.user_id, topic.forum) %}
-        <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-danger">
-            <span class="fa fa-trash-o"></span> Delete Topic
-        </a>
-    {% endif %}
-    {% if current_user|can_moderate(topic.forum) %}
-        {% if not topic.locked %}
-            <a href="{{ url_for('forum.lock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
-                <span class="fa fa-lock"></span> Lock Topic
-            </a>
-        {% else %}
-            <a href="{{ url_for('forum.unlock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
-                <span class="fa fa-unlock"></span> Unlock Topic
-            </a>
-        {% endif %}
-    {% endif %}
+    <div id="brdtop">
+        <div class="inbox clearfix">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ topic.forum.category.url }}">{{ topic.forum.category.title }}</a></li>
+                <li><a href="{{ topic.forum.url }}">{{ topic.forum.title }}</a></li>
+                <li class="active">{{ topic.title }}</li>
+            </ul>
+        </div>
     </div>
 
-    {% if current_user.is_authenticated() %}
-    <div class="btn btn-group">
-        {% if current_user.is_tracking_topic(topic) %}
-        <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
-            </span> Untrack Topic
-        </a>
-        {% else %}
-        <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
-            <span class="fa fa-star"></span> Track Topic
-        </a>
-        {% endif %}
+    <div id="vt" class="vtx">
 
-        {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
-        <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
-            <span class="fa fa-pencil"></span> Reply
-        </a>
-        {% endif %}
-    </div>
-    {% endif %}
-</div>
+        <h2 class="topic-title"><span>Topic Title</span></h2>
 
-<table class="table table-bordered">
-    <tbody>
-        {% for post in posts.items %}
-        <tr>
-            <td >
-                <span class="pull-right">
-                    <strong>#{%- if posts.page == 1 -%} {{ loop.index }} {%- else -%} {{ loop.index + (posts.page - 1) * flaskbb_config["POSTS_PER_PAGE"] }} {%- endif -%}</strong>
-                </span>
-                <span class="pull-left">
-                    <a href="
-                    {%- if posts.page > 1 -%}
-                        {{ topic.url }}?page={{ posts.page }}#pid{{ post.id }}
-                    {%- else -%}
-                        {{ topic.url }}#pid{{ post.id }}
-                    {%- endif -%}
-                        ">{{ post.date_created|format_date('%d %B %Y') }}</a>
-                    {% if post.user_id and post.date_modified %}
-                    <small>
-                        (Last modified: {{ post.date_modified|format_date }} by
-                        <a href="{{ url_for('user.profile', username=post.modified_by) }}">
-                            {{ post.modified_by }}
-                        </a>.)
-                    </small>
-                    {% endif %}
-                </span>
-            </td>
-        </tr>
+        <div class="top-navigation clearfix">
+            {{ render_topic_pagination(posts, topic.url) }}
 
-        <tr>
-        <td>
-            <table class="table table-borderless">
-                <tr>
-                {% if post.user_id %}
-                    {% if post.user.avatar %}
-                    <td width="1">
-                        <img src="{{ post.user.avatar }}" alt="Avatar" height="100" width="100">
-                    </td>
-                    {% endif %}
-                    <td>
-                        <a href="{{ post.user.url }}">
-                            <span style="font-weight:bold">{{ post.user.username }}</span> <!-- TODO: Implement userstyles -->
-                        </a>
-                            {%- if post.user|is_online %}
-                            <span class="label label-success">Online</span>
-                            {%- else %}
-                            <span class="label label-default">Offline</span>
-                            {%- endif %}
-                            <div class="profile primary-group">
-                            {{ post.user.primary_group.name }}
-                            </div>
-                    </td>
-
-                    <td class="pull-right">
-                        Posts: {{ post.user.post_count }}<br />
-                        Registered since: {{ post.user.date_joined|format_date('%b %d %Y') }}<br />
-                    </td>
+            <div class="btn-group postlink pull-right">
+                {% if current_user.is_tracking_topic(topic) %}
+                <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
+                    </span> Untrack Topic
+                </a>
                 {% else %}
-                    <td>
-                        <strong>{{ post.username }}</strong>
-                        <br />
-                        Guest
-                    </td>
+                <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
+                    <span class="fa fa-star"></span> Track Topic
+                </a>
                 {% endif %}
-                </tr>
-            </table>
-        </td>
-        </tr>
 
-        <tr>
-            <td>
-                <div class="post_body" id="pid{{ post.id }}">
-                {% autoescape false %}
-                    {{ post.content|markup }}
+                {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
+                <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
+                    <span class="fa fa-pencil"></span> Reply
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="btn-group postlink pull-right">
+            {% if current_user|delete_topic(topic.first_post.user_id, topic.forum) %}
+                <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-danger">
+                    <span class="fa fa-trash-o"></span> Delete Topic
+                </a>
+            {% endif %}
+            {% if current_user|can_moderate(topic.forum) %}
+                {% if not topic.locked %}
+                    <a href="{{ url_for('forum.lock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
+                        <span class="fa fa-lock"></span> Lock Topic
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('forum.unlock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
+                        <span class="fa fa-unlock"></span> Unlock Topic
+                    </a>
+                {% endif %}
+            {% endif %}
+            </div>
+
+        </div>
+
+
+        {% for post in posts.items %}
+
+        <div id="{{ post.id }}" class="post post-bg clearfix">
+
+{#
+
+{% if post.user_id %}
+    {% if post.user.avatar %}
+    <td width="1">
+        <img src="{{ post.user.avatar }}" alt="Avatar" height="100" width="100">
+    </td>
+    {% endif %}
+    <td>
+        <a href="{{ post.user.url }}">
+            <span style="font-weight:bold">{{ post.user.username }}</span> <!-- TODO: Implement userstyles -->
+        </a>
+            {%- if post.user|is_online %}
+            <span class="label label-success">Online</span>
+            {%- else %}
+            <span class="label label-default">Offline</span>
+            {%- endif %}
+            <div class="profile primary-group">
+            {{ post.user.primary_group.name }}
+            </div>
+    </td>
+
+    <td class="pull-right">
+        Posts: {{ post.user.post_count }}<br />
+        Registered since: {{ post.user.date_joined|format_date('%b %d %Y') }}<br />
+    </td>
+{% else %}
+    <td>
+        <strong>{{ post.username }}</strong>
+        <br />
+        Guest
+    </td>
+{% endif %}
+
+
+
+
+{% if current_user.is_authenticated() and post.user_id %}
+<a href="{{ url_for('user.new_message') }}?to_user={{ post.user.username }}">PM</a>
+{% endif %}
+{% if post.user.website %}
+| <a href="{{post.user.website}}">Website</a>
+{% endif %}
+
+#}
+
+            <div class="author-box text-center col-md-2 col-sm-2 col-xs-2">
+                <!-- Registered User -->
+                {% if post.user_id %}
+                <div class="author-name"><h4><a href="{{ post.user.url }}">{{ post.user.username }}</a></h4></div>
+                <div class="author-title"><h5>{{ post.user.primary_group.name }}</h5></div>
+
+                {% if post.user.avatar %}
+                    <div class="author-avatar"><img src="{{ post.user.avatar }}" width="70" height="80" alt=""></div>
+                {% endif %}
+
+
+                <!--
+                <div class="author-icon author-registered"><a href="#" class="tip author-field" data-original-title="Member since: 1619-03-06"></a></div>
+                <div class="author-icon author-posts"><a href="#" class="tip author-field" data-original-title="4,815 Posts"></a></div>
+                <div class="author-icon author-ip"><a href="#" class="tip author-field" data-original-title="IP: 127.0.0.1"></a></div>
+                <div class="author-icon author-email"><a href="#" class="tip author-field" data-original-title="Email: "></a></div>
+                <div class="author-icon author-website"><a href="#" class="tip author-field" data-original-title="Website: " rel="nofollow"></a></div>
+                -->
+                {% else %}
+                <!-- Guest/Deleted User -->
+
+                {% endif %}
+            </div>
+
+            <div class="post-box col-md-10 col-sm-10 col-xs-10">
+                <div class="post-meta clearfix">
+                    <div class="pull-left">
+                        <!-- Creation date / Date modified -->
+                        <a href="
+                        {%- if posts.page > 1 -%}
+                            {{ topic.url }}?page={{ posts.page }}#pid{{ post.id }}
+                        {%- else -%}
+                            {{ topic.url }}#pid{{ post.id }}
+                        {%- endif -%}">
+                            {{ post.date_created|format_date('%d %B %Y') }}
+                        </a>
+                        {% if post.user_id and post.date_modified %}
+                        <small>
+                            (Last modified: {{ post.date_modified|format_date }} by
+                            <a href="{{ url_for('user.profile', username=post.modified_by) }}">{{ post.modified_by }}</a>.)
+                        </small>
+                    {% endif %}
+                    </div>
+
+                    <!-- Post number -->
+                    <div class="pull-right">
+                        #{%- if posts.page == 1 -%} {{ loop.index }} {%- else -%} {{ loop.index + (posts.page - 1) * flaskbb_config["POSTS_PER_PAGE"] }} {%- endif -%}
+                    </div>
+                </div>
+                <div class="post-content" id="pid{{ post.id }}">
+
+                    {{ post.content|markup|safe }}
+
+                </div>
+                <div class="post-footer">
+                    <div class="post-signature pull-left col-md-9 col-md-9 col-xs-9">
+
                     <!-- Signature Begin -->
                     {% if post.user_id and post.user.signature %}
-                    <div class="signature">
-                        <hr>
-                        {{ post.user.signature|markup }}
-                    </div>
+                        {{ post.user.signature|markup|safe }}
                     {% endif %}
                     <!-- Signature End -->
-                {% endautoescape %}
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span class="pull-left">
-                    {% if current_user.is_authenticated() and post.user_id %}
-                    <a href="{{ url_for('user.new_message') }}?to_user={{ post.user.username }}">PM</a>
-                    {% endif %}
-                    {% if post.user.website %}
-                    | <a href="{{post.user.website}}">Website</a>
-                    {% endif %}
-                </span>
 
-                <span class="pull-right">
+                    </div>
+
+                    <!-- Report/Edit/Delete/Quote Post-->
+                    <div class="post-menu pull-right col-md-3 col-sm-3 col-xs-3">
                     {% if current_user.is_authenticated() %}
-                    <a href="{{ url_for('forum.report_post', post_id=post.id) }}" onclick="window.open(this.href, 'wio_window','width=500,height=500'); return false;">
-                        Report
-                    </a> |
+                    <!-- Report post -->
+                        <a href="{{ url_for('forum.report_post', post_id=post.id) }}" onclick="window.open(this.href, 'wio_window','width=500,height=500'); return false;" class="tip btn post-report" data-placement="top" title="Report this post" data-original-title="Report this post"></a>
                     {% endif %}
+
+
                     {% if current_user|edit_post(post.user_id, topic.forum) %}
-                    <a href="{{ url_for('forum.edit_post', post_id=post.id) }}">Edit</a> |
+                    <!-- Edit Post -->
+                    <a href="{{ url_for('forum.edit_post', post_id=post.id) }}" class="tip btn post-edit" data-placement="top" title="" data-original-title="Edit this post"></a>
                     {% endif %}
                     {% if topic.first_post_id == post.id %}
                         {% if current_user|delete_topic(topic.first_post.user_id, topic.forum) %}
-                        <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}">Delete</a> |
+                        <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this topic"></a>
                         {% endif %}
                     {% else %}
                         {% if current_user|delete_post(post.user_id, topic.forum) %}
-                        <a href="{{ url_for('forum.delete_post', post_id=post.id) }}">Delete</a> |
+                    <!-- Delete Post -->
+                        <a href="{{ url_for('forum.delete_post', post_id=post.id) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></a>
                         {% endif %}
+
                     {% endif %}
                     {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
-                        <!-- Quick quote -->
-                        <a href="#" class="quote_btn" data-post-id="pid{{ post.id }}">Quote</a> |
-                        <!-- Full quote/reply -->
-                        <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}">Reply</a>
+                    <!-- Quick quote -->
+                        <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="pid{{ post.id }}" title="" data-original-title="Quote this post"></a>
+                    <!-- Full quote/reply -->
+                        <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all quote_btn" data-placement="top" title="" data-original-title="Full Reply"></a>
                     {% endif %}
-                </span>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
-{% if form %}
-    {% from "macros.html" import render_field %}
-    <form class="form" action="#" method="post">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div id="brdbottom">
+            <div class="inbox">
+                <div class="pagepost clearfix">
+                    {{ render_pagination(posts, topic.url) }}
+
+                    <div class="btn-group postlink pull-right">
+                        {% if current_user.is_tracking_topic(topic) %}
+                        <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
+                            </span> Untrack Topic
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
+                            <span class="fa fa-star"></span> Track Topic
+                        </a>
+                        {% endif %}
+
+                        {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
+                        <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
+                            <span class="fa fa-pencil"></span> Reply
+                        </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <ul class="breadcrumb">
+                    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                    <li><a href="{{ topic.forum.category.url }}">{{ topic.forum.category.title }}</a></li>
+                    <li><a href="{{ topic.forum.url }}">{{ topic.forum.title }}</a></li>
+                    <li class="active">{{ topic.title }}</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    {% if form %}
+    <form method="POST">
         {{ form.hidden_tag() }}
 
-        {{ render_field(form.content, div_class="col-sm-12 reply-content", rows=5) }}
-
-        <button type="submit" class="btn btn-success">Reply!</button>
+        <div id="quickpost" class="post post-bg clearfix">
+            <div class="author-box col-md-2 col-sm-2 col-xs-2">
+                <div class="author-name"><h4>Quick reply</h4></div>
+            </div>
+            <div class="post-box col-md-10 col-sm-10 col-xs-10">
+                <div class="post-content">
+                    {{ render_quickreply(form.content, div_class="new-message reply-content", rows=7, cols=75) }}
+                </div>
+            </div>
+            <div class="new-post-submit col-md-offset-2">
+                <div class="post-options pull-left">
+                    <span class="label label-success">BBCode</a></span>
+                    <span class="label label-success">[url] tag</a></span>
+                    <span class="label label-danger">[img] tag</a></span>
+                    <span class="label label-success">Smilies</a></span>
+                </div>
+                <input class="btn btn-success pull-right" type="submit" value="Submit" />
+            </p>
+        </div>
     </form>
-{% endif %}
+    {% endif %}
+
+</div>
 
 {% endblock %}
 

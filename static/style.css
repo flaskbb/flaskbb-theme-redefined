@@ -722,13 +722,13 @@ a, a:hover, a:focus, a:active {
 }
 
 .post-signature p {
-	margin-bottom: 0.25em;
+	margin-bottom: 2em;
 }
 
 .post-menu {
 	position: absolute;
 	right: 0;
-	bottom: 0.25em;
+	bottom: -0.25em;
 }
 
 .post-menu .btn {
@@ -754,22 +754,30 @@ a, a:hover, a:focus, a:active {
 }
 
 .post-menu .btn::before {
-	font-family: 'entypo';
-	font-size: 3em;
+	font-family: 'FontAwesome';
+	font-size: 1.05em;
 	line-height: 0.45em;
 }
 
 .post-menu .post-report::before {
-	content: '\2691';
+	content: "\f024";
+}
+
+.post-menu .post-edit::before {
+	content: "\f040";
 }
 
 .post-menu .post-delete::before {
-	content: '\e729';
+	content: "\f014";
 }
 
 .post-menu .post-quote::before {
-	content: '\275e';
+	content: "\f10e";
 }
+.post-menu .post-reply-all::before {
+	content: "\f122";
+}
+
 
 
 /*

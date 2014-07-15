@@ -18,6 +18,24 @@
     {% endif %}
 {%- endmacro -%}
 
+{%- macro render_quickreply(field, rows, cols, div_class='') -%}
+{%- if kwargs['required'] or field.flags.required -%}
+    {% if div_class %}
+        {{ field(class=div_class, required="required", cols=cols, rows=rows, placeholder=field.label.text) }}
+    {% else %}
+        {{ field(class="new-message", required="required", cols=cols, rows=row, placeholder=field.label.text) }}
+    {% endif %}
+{%- else -%}
+    {% if div_class %}
+        {{ field(class=div_class, cols=cols, rows=row, placeholder=field.label.text) }}
+    {% else %}
+        {{ field(class="new-message", cols=cols, rows=row, placeholder=field.label.text) }}
+    {% endif %}
+{%- endif -%}
+
+{{ field_description(field) }}
+{{ field_errors(field) }}
+{%- endmacro -%}
 
 {%- macro render_boolean_field(field, inline=False) -%}
 <label class="checkbox {%- if inline -%}inline{%- endif -%}">
