@@ -70,53 +70,7 @@
 
         <div id="{{ post.id }}" class="post post-bg clearfix">
 
-{#
-
-{% if post.user_id %}
-    {% if post.user.avatar %}
-    <td width="1">
-        <img src="{{ post.user.avatar }}" alt="Avatar" height="100" width="100">
-    </td>
-    {% endif %}
-    <td>
-        <a href="{{ post.user.url }}">
-            <span style="font-weight:bold">{{ post.user.username }}</span> <!-- TODO: Implement userstyles -->
-        </a>
-            {%- if post.user|is_online %}
-            <span class="label label-success">Online</span>
-            {%- else %}
-            <span class="label label-default">Offline</span>
-            {%- endif %}
-            <div class="profile primary-group">
-            {{ post.user.primary_group.name }}
-            </div>
-    </td>
-
-    <td class="pull-right">
-        Posts: {{ post.user.post_count }}<br />
-        Registered since: {{ post.user.date_joined|format_date('%b %d %Y') }}<br />
-    </td>
-{% else %}
-    <td>
-        <strong>{{ post.username }}</strong>
-        <br />
-        Guest
-    </td>
-{% endif %}
-
-
-
-
-{% if current_user.is_authenticated() and post.user_id %}
-<a href="{{ url_for('user.new_message') }}?to_user={{ post.user.username }}">PM</a>
-{% endif %}
-{% if post.user.website %}
-| <a href="{{post.user.website}}">Website</a>
-{% endif %}
-
-#}
-
-            <div class="author-box text-center col-md-2 col-sm-2 col-xs-2">
+            <div class="author-box col-md-2 col-sm-2 col-xs-2">
                 <!-- Registered User -->
                 {% if post.user_id %}
                 <div class="author-name"><h4><a href="{{ post.user.url }}">{{ post.user.username }}</a></h4></div>
@@ -126,17 +80,24 @@
                     <div class="author-avatar"><img src="{{ post.user.avatar }}" width="70" height="80" alt=""></div>
                 {% endif %}
 
+                <div class="author-field author-registered">Joined: {{ post.user.date_joined|format_date('%b %d %Y') }}</div>
+                <div class="author-field author-posts">Posts: {{ post.user.post_count }}</div>
+                <div class="author-field author-email">
+                    {% if current_user.is_authenticated() and post.user_id %}
+                    <a href="{{ url_for('user.new_message') }}?to_user={{ post.user.username }}">PM</a>
+                    {% endif %}
 
-                <!--
-                <div class="author-icon author-registered"><a href="#" class="tip author-field" data-original-title="Member since: 1619-03-06"></a></div>
-                <div class="author-icon author-posts"><a href="#" class="tip author-field" data-original-title="4,815 Posts"></a></div>
-                <div class="author-icon author-ip"><a href="#" class="tip author-field" data-original-title="IP: 127.0.0.1"></a></div>
-                <div class="author-icon author-email"><a href="#" class="tip author-field" data-original-title="Email: "></a></div>
-                <div class="author-icon author-website"><a href="#" class="tip author-field" data-original-title="Website: " rel="nofollow"></a></div>
-                -->
+                    {%- if post.user|is_online %}
+                    <div class="author-online"></div>
+                    {%- else %}
+                    <div class="author-offline"> </div>
+                    {%- endif %}
+                </div>
+                <div class="author-field author-website"><a href="#" rel="nofollow">Website</a></div>
+
                 {% else %}
-                <!-- Guest/Deleted User -->
-
+                <div class="author-name"><h4><a href="{{ post.user.url }}">{{ post.username }}</a></h4></div>
+                <div class="author-title"><h5>Guest</h5></div>
                 {% endif %}
             </div>
 
@@ -165,7 +126,7 @@
                         #{%- if posts.page == 1 -%} {{ loop.index }} {%- else -%} {{ loop.index + (posts.page - 1) * flaskbb_config["POSTS_PER_PAGE"] }} {%- endif -%}
                     </div>
                 </div>
-                <div class="post-content" id="pid{{ post.id }}">
+                <div class="post-content post_body" id="pid{{ post.id }}">
 
                     {{ post.content|markup|safe }}
 
@@ -182,12 +143,14 @@
                     </div>
 
                     <!-- Report/Edit/Delete/Quote Post-->
-                    <div class="post-menu pull-right col-md-3 col-sm-3 col-xs-3">
-                    {% if current_user.is_authenticated() %}
-                    <!-- Report post -->
-                        <a href="{{ url_for('forum.report_post', post_id=post.id) }}" onclick="window.open(this.href, 'wio_window','width=500,height=500'); return false;" class="tip btn post-report" data-placement="top" title="Report this post" data-original-title="Report this post"></a>
-                    {% endif %}
+                    <div class="post-menu pull-right col-md-3 col-sm-3 col-xs-3 ">
 
+                    {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
+                    <!-- Quick quote -->
+                        <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="pid{{ post.id }}" title="" data-original-title="Quote this post"></a>
+                    <!-- Full quote/reply -->
+                        <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all quote_btn" data-placement="top" title="" data-original-title="Full Reply"></a>
+                    {% endif %}
 
                     {% if current_user|edit_post(post.user_id, topic.forum) %}
                     <!-- Edit Post -->
@@ -204,11 +167,10 @@
                         {% endif %}
 
                     {% endif %}
-                    {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
-                    <!-- Quick quote -->
-                        <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="pid{{ post.id }}" title="" data-original-title="Quote this post"></a>
-                    <!-- Full quote/reply -->
-                        <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all quote_btn" data-placement="top" title="" data-original-title="Full Reply"></a>
+
+                    {% if current_user.is_authenticated() %}
+                    <!-- Report post -->
+                        <a href="{{ url_for('forum.report_post', post_id=post.id) }}" onclick="window.open(this.href, 'wio_window','width=500,height=500'); return false;" class="tip btn post-report" data-placement="top" title="Report this post" data-original-title="Report this post"></a>
                     {% endif %}
 
                     </div>
@@ -264,8 +226,8 @@
                 <div class="author-name"><h4>Quick reply</h4></div>
             </div>
             <div class="post-box col-md-10 col-sm-10 col-xs-10">
-                <div class="post-content">
-                    {{ render_quickreply(form.content, div_class="new-message reply-content", rows=7, cols=75) }}
+                <div class="post-content reply-content">
+                    {{ render_quickreply(form.content, div_class="new-message", rows=7, cols=75) }}
                 </div>
             </div>
             <div class="new-post-submit col-md-offset-2">

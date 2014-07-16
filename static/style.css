@@ -703,37 +703,38 @@ a, a:hover, a:focus, a:active {
 	background: #fff;
 	border: 1px solid #cad7e1;
 	border-radius: 0.25em;
-	min-height: 18em;
+	min-height: 21em;
 	padding: 1em 1.5em 8em 1.5em;
 	position: relative;
 }
 
 .post-footer {
-	border-top: 1px solid #e8ecf1;
-	bottom: 0.25em;
+	/*border-top: 1px solid #e8ecf1;*/
+	border: 1px solid #e8ecf1;
+	bottom: 0em;
 	margin: 0 -1.5em;
-	padding: 0.5em 0 0.25em 0;
 	position: absolute;
 	width: 100%;
+	min-height: 3em;
 }
 
 .post-signature {
-
-}
-
-.post-signature p {
-	margin-bottom: 2em;
+	margin-bottom: 0.25em;
 }
 
 .post-menu {
 	position: absolute;
 	right: 0;
-	bottom: -0.25em;
+	bottom: 0;
+	margin-bottom: -0.25em;
+	margin-right: -0.75em;
 }
 
 .post-menu .btn {
 	color: #a5acb3;
 	padding: 0.5em;
+	text-align: right;
+	float: right;
 }
 
 .post-menu .btn.post-report:hover,
@@ -755,8 +756,8 @@ a, a:hover, a:focus, a:active {
 
 .post-menu .btn::before {
 	font-family: 'FontAwesome';
-	font-size: 1.05em;
-	line-height: 0.45em;
+	font-size: 1.15em;
+	line-height: 0.5em;
 }
 
 .post-menu .post-report::before {
