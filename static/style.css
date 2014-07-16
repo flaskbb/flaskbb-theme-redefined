@@ -709,8 +709,7 @@ a, a:hover, a:focus, a:active {
 }
 
 .post-footer {
-	/*border-top: 1px solid #e8ecf1;*/
-	border: 1px solid #e8ecf1;
+	border-top: 1px solid #e8ecf1;
 	bottom: 0em;
 	margin: 0 -1.5em;
 	position: absolute;
