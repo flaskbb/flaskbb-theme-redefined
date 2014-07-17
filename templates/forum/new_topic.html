@@ -3,22 +3,71 @@
 
 {% extends theme("layout.html") %}
 {% block content %}
-{% from theme("macros.html") import render_field %}
+{% from theme("macros.html") import render_input_field, render_quickreply, render_boolean_field %}
 
-<ul class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li><a href="{{ forum.url }}">{{ forum.title }}</a></li>
-    <li class="active">New Topic</li>
-</ul>
+<div id="brdmain">
 
-<form class="form" role="form" method="post">
-    {{ form.hidden_tag() }}
-    <h3>New Topic</h3>
+    <div id="brdtop">
+        <div class="inbox clearfix">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ forum.url }}">{{ forum.title }}</a></li>
+                <li class="active">New Topic</li>
+            </ul>
+        </div>
+    </div>
 
-    {{ render_field(form.title, div_class="col-sm-12") }}
-    {{ render_field(form.content, div_class="col-sm-12", rows=12) }}
+    <div id="vt" class="vtx">
+        <form role="form" method="POST">
 
-    <button type="submit" class="btn btn-success">Reply!</button>
-</form>
+            {{ form.hidden_tag() }}
+
+
+            <div class="topic-title new-topic-title">
+                {{ render_input_field(form.title, div_class="topic-title, new-topic-title", placeholder="New Topic Title") }}
+            </div>
+
+            <div id="post-new" class="post post-new post-bg clearfix">
+
+                <div class="author-box col-md-2">
+                    <div class="author-name"><h4><a href="{{ current_user.url }}">{{ current_user.username }}</a></h4></div>
+                    <div class="author-title"><h5>{{ current_user.primary_group.name }}</h5></div>
+
+                    {% if current_user.avatar %}
+                    <div class="author-avatar"><img src="{{ current_user.avatar }}" width="100" height="100" alt=""></div>
+                    {% endif %}
+
+                    <div class="author-field author-registered">Joined: {{ current_user.date_joined|format_date('%b %d %Y') }}</div>
+                    <div class="author-field author-posts">Posts: {{ current_user.post_count }}</div>
+                    {% if current_user.website %}
+                    <div class="author-field author-website"><a href="{{ current_user.website }}" rel="nofollow">Website</a></div>
+                    {% endif %}
+                </div>
+
+                <div class="post-box col-md-10">
+                    <div class="post-meta clearfix">
+                        <div class="pull-right">#1</div>
+                    </div>
+                    <div class="post-content new-post-content">
+                        {{ render_quickreply(form.content, div_class="new-topic-message", rows="12", cols="95") }}
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-options">
+                            <div class="col-md-8">
+                                {{ render_boolean_field(form.track_topic) }}
+                            </div>
+                            <div class="text-right col-md-4">
+                                <input class="btn btn-success" type="submit" value="Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 {% endblock %}

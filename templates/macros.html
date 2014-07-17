@@ -37,6 +37,34 @@
 {{ field_errors(field) }}
 {%- endmacro -%}
 
+
+{# Renders a non bootstrap input field #}
+{%- macro render_input_field(field, div_class='', placeholder='') -%}
+
+{%- if div_class -%}
+    <div class="{{ div_class }}">
+{%- endif -%}
+
+{%- if placeholder -%}
+    {% set field_placeholder = placeholder %}
+{%- else -%}
+    {% set field_placeholder = field.label.text %}
+{%- endif -%}
+
+{%- if kwargs['required'] or field.flags.required -%}
+    {{ field(required="required", placeholder=field_placeholder) }}
+{%- else -%}
+    {{ field(placeholder=field_placeholder) }}
+{% endif %}
+
+{%- if div_class -%}
+    </div>
+{%- endif -%}
+
+{{ field_description(field) }}
+{{ field_errors(field) }}
+{%- endmacro -%}
+
 {%- macro render_boolean_field(field, inline=False) -%}
 <label class="checkbox {%- if inline -%}inline{%- endif -%}">
     {{ field(**kwargs) }}

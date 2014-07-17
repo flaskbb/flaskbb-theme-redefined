@@ -77,7 +77,7 @@
                 <div class="author-title"><h5>{{ post.user.primary_group.name }}</h5></div>
 
                 {% if post.user.avatar %}
-                    <div class="author-avatar"><img src="{{ post.user.avatar }}" width="70" height="80" alt=""></div>
+                    <div class="author-avatar"><img src="{{ post.user.avatar }}" width="100" height="100" alt=""></div>
                 {% endif %}
 
                 <div class="author-field author-registered">Joined: {{ post.user.date_joined|format_date('%b %d %Y') }}</div>
@@ -93,7 +93,9 @@
                     <div class="author-offline"> </div>
                     {%- endif %}
                 </div>
-                <div class="author-field author-website"><a href="#" rel="nofollow">Website</a></div>
+                {% if post.user.website %}
+                <div class="author-field author-website"><a href="{{ post.user.website }}" rel="nofollow">Website</a></div>
+                {% endif %}
 
                 {% else %}
                 <div class="author-name"><h4><a href="{{ post.user.url }}">{{ post.username }}</a></h4></div>

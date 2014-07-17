@@ -212,7 +212,7 @@ a, a:hover, a:focus, a:active {
 .postlink .post-new::before,
 .postlink .suscribe::before,
 .postlink .markread::before {
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 2em;
 	line-height: 0.75em;
 	margin-right: 0.25em;
@@ -517,7 +517,7 @@ a, a:hover, a:focus, a:active {
  */
 
 .post-new .post-box {
-	min-height: 32em;
+	min-height: 15em;
 }
 
 .topic-title.new-topic-title {
@@ -662,37 +662,6 @@ a, a:hover, a:focus, a:active {
 	display: inline-block;
 }
 
-.author-field::before {
-	color: #a5acb3;
-	font-family: 'entypo';
-	font-size: 2.5em;
-	line-height: 0.75em;
-}
-
-.author-location .author-field::before {
-	content: '\e724';
-}
-
-.author-registered .author-field::before {
-	content: '\e771';
-}
-
-.author-posts .author-field::before {
-	content: '\e718';
-}
-
-.author-ip .author-field::before {
-	content: '\e776';
-}
-
-.author-email .author-field::before {
-	content: '\2709';
-}
-
-.author-website .author-field::before {
-	content: '\1F517';
-}
-
 .post-meta {
 	border-bottom: 1px solid #e8ecf1;
 	margin: -0.25em -0.5em 0.5em -0.5em;
@@ -710,11 +679,15 @@ a, a:hover, a:focus, a:active {
 
 .post-footer {
 	border-top: 1px solid #e8ecf1;
-	bottom: 0em;
+	bottom: 0;
 	margin: 0 -1.5em;
 	position: absolute;
 	width: 100%;
 	min-height: 3em;
+}
+
+.post-footer .post-options {
+	padding: 0.10em 0 0.25em 0;
 }
 
 .post-signature {
@@ -927,7 +900,7 @@ a, a:hover, a:focus, a:active {
 
 .profile-widget .profile-contact .btn::before {
 	content: '\2709';
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 2.5em;
 	line-height: 0.5em;
 	margin-right: 0.15em;
@@ -1005,7 +978,7 @@ a, a:hover, a:focus, a:active {
 .profile-full .profile-facebook::before,
 .profile-full .profile-twitter::before,
 .profile-full .profile-googleplus::before {
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 2.5em;
 	font-style: normal;
 	line-height: 0.5em;
@@ -1014,7 +987,7 @@ a, a:hover, a:focus, a:active {
 .profile-full .profile-facebook::before,
 .profile-full .profile-twitter::before,
 .profile-full .profile-googleplus::before {
-	font-family: 'entypo-social';
+	font-family: 'FontAwesome';
 }
 
 .profile-full .profile-title h4::before {
@@ -1047,7 +1020,7 @@ a, a:hover, a:focus, a:active {
 
 .profile-full .profile-registered::before {
 	content: '\2014';
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 1em;
 	font-style: normal;
 	line-height: 0.5em;
@@ -1076,7 +1049,7 @@ a, a:hover, a:focus, a:active {
 	background: #e8ecf1;
 	border: 0 !important;
 	border-radius: 0 !important;
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 3em;
 	line-height: 0.5em !important;
 	margin-right: 0 !important;
@@ -1363,7 +1336,7 @@ a, a:hover, a:focus, a:active {
 .profile-save::before,
 .profile-default::before,
 .profile-quit::before {
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 2.5em;
 	line-height: 0.25em;
 	position: relative;
@@ -1411,7 +1384,7 @@ a, a:hover, a:focus, a:active {
 .profile-editor .profile-socials .icon-twitter::before,
 .profile-editor .profile-socials .icon-googleplus::before,
 .profile-editor .profile-socials .icon-skype::before {
-	font-family: 'entypo-social';
+	font-family: 'FontAwesome';
 	font-size: 3.25em;
 	line-height: 0.25em;
 	position: relative;
@@ -1500,7 +1473,7 @@ a, a:hover, a:focus, a:active {
 
 .profile-available-style-menu .activate-style::before,
 .profile-available-style-menu .delete-style::before {
-	font-family: 'entypo';
+	font-family: 'FontAwesome';
 	font-size: 2em;
 	margin-right: 0.25em;
 	position: relative;
