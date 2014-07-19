@@ -3,7 +3,7 @@
 
 {% extends theme("layout.html") %}
 {% block content %}
-{% from theme("macros.html") import render_quickreply %}
+{% from theme("macros.html") import render_quickreply, render_boolean_field %}
 
 <div id="brdmain">
 
@@ -52,7 +52,10 @@
                     </div>
                     <div class="post-footer">
                         <div class="post-options">
-                            <div class="text-right col-md-12">
+                            <div class="col-md-8">
+                                {{ render_boolean_field(form.track_topic) }}
+                            </div>
+                            <div class="text-right col-md-4">
                                 <input class="btn btn-success" type="submit" value="Submit" />
                             </div>
                         </div>
