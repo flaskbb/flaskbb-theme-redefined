@@ -26,6 +26,7 @@
         <div class="top-navigation clearfix">
             {{ render_topic_pagination(posts, topic.url) }}
 
+        {% if current_user.is_authenticated() %}
             <div class="btn-group postlink pull-right">
                 {% if current_user.is_tracking_topic(topic) %}
                 <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
@@ -43,7 +44,7 @@
                 </a>
                 {% endif %}
             </div>
-
+        {% endif %}
             <div class="btn-group postlink pull-right">
             {% if current_user|delete_topic(topic.first_post.user_id, topic.forum) %}
                 <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-danger">
@@ -188,6 +189,7 @@
                 <div class="pagepost clearfix">
                     {{ render_pagination(posts, topic.url) }}
 
+                {% if current_user.is_authenticated() %}
                     <div class="btn-group postlink pull-right">
                         {% if current_user.is_tracking_topic(topic) %}
                         <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
@@ -205,7 +207,7 @@
                         </a>
                         {% endif %}
                     </div>
-
+                {% endif %}
                 </div>
 
                 <ul class="breadcrumb">
