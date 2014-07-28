@@ -1,29 +1,40 @@
 {% extends theme("layout.html") %}
+{%- from theme("macros.html") import topnav, navlink with context -%}
+{% block navigation %}
+<header id="brdheader">
+
+    <div id="brdtitle">
+        <h1 class="forum-title">{{ flaskbb_config["PROJECT_TITLE"] }}</h1>
+        <div class="forum-desc"><p>{{ flaskbb_config["PROJECT_SUBTITLE"] }}</p></div>
+    </div>
+
+    <div id="brdmenu">
+
+        <div class="avatar">
+            <img src="{{ current_user.avatar }}" alt="" />
+        </div>
+
+        <ul class="nav nav-tabs profile-edit-tabs" id="profile-edit-tabs">
+            {{ topnav('user.settings', 'General', id="tab-general", icon="fa fa-cog") }}
+            {{ topnav('user.change_user_details', 'User Details', id="tab-userdetails", icon="fa fa-user") }}
+            {{ topnav('user.change_email', 'E-Mail', id="tab-email", icon="fa fa-envelope") }}
+            {{ topnav('user.change_password', 'Password', id="tab-password", icon="fa fa-asterisk") }}
+            <li class="pull-right"><a href="{{ url_for('forum.index') }}" class="tip">Back to the forum</a></li>
+        </ul>
+
+    </div>
+
+</header>
+
+
+{% endblock %}
+
 {% block content %}
-{%- from theme('macros.html') import navlink with context -%}
+<div id="brdmain">
 
-<ul class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li><a href="{{ current_user.url }}">{{ current_user.username }}</a></li>
-    <li class="active">Settings</li>
-</ul>
-
-<div class="row">
-    <div class="col-sm-3">
-        <div class="sidebar">
-            <ul class="nav sidenav">
-                <li class="nav-header">Account Settings</li>
-                {{ navlink('user.settings', 'General Settings') }}
-                {{ navlink('user.change_user_details', 'Change User Details') }}
-                {{ navlink('user.change_email', 'Change E-Mail Address') }}
-                {{ navlink('user.change_password', 'Change Password') }}
-            </ul>
-        </div> <!--/.sidebar -->
-    </div><!--/.col-sm-3 -->
-    <div class="col-sm-9">
-        {% block settings_content %}{% endblock %}
-    </div><!--/.col-sm-9 -->
-</div><!--/row-->
-
+    <div id="profile-editor" class="profile-editor clearfix">
+    {% block settings_content %}{% endblock %}
+    </div>
+</div>
 {% endblock %}
 

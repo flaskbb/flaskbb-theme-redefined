@@ -94,14 +94,18 @@
 </div>
 {%- endmacro -%}
 
-{%- macro render_field(field, div_class='', rows='') -%}
+{%- macro render_field(field, with_label=True, div_class='', rows='') -%}
 <div class="form-group{%- if field.errors %} has-error{%- endif %}">
     {% if div_class %}
     <div class="{{ div_class }}">
     {% else %}
     <div class="col-sm-5">
     {% endif %}
-        <label>{{ field.label.text }}</label>
+
+        {% if with_label %}
+            <label>{{ field.label.text }}</label>
+        {% endif %}
+
         {%- if kwargs['required'] or field.flags.required -%}
             {% if rows %}
                 {{ field(class="form-control", required="required", rows=rows, placeholder=field.label.text) }}
@@ -171,15 +175,21 @@
 {%- endmacro -%}
 
 
-{%- macro horizontal_field(field, label_text='', label_class='') -%}
+{%- macro horizontal_field(field, label_text='', label_class='', div_class='') -%}
 <div class="form-group row {%- if field.errors %} has-error{%- endif %}">
 
-    {% if class %}
-        {{ field.label(class=class) }}
+    {% if label_class %}
+        {{ field.label(class=label_class) }}
     {% else %}
         {{ field.label(class="col-sm-3 control-label") }}
     {% endif %}
-    <div class="col-sm-4">
+
+    {% if label_class %}
+        <div class="{{ div_class }}">
+    {% else %}
+        <div class="col-sm-4">
+    {% endif %}
+
 
     {%- if kwargs['required'] or field.flags.required -%}
         {% if label_text %}
@@ -200,6 +210,7 @@
     </div>
 </div>
 {%- endmacro -%}
+
 
 
 {% macro topnav(endpoint, name, id='', icon='', active=False) %}

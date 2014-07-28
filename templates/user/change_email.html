@@ -2,17 +2,27 @@
 {% from theme("macros.html") import horizontal_field %}
 
 {% block settings_content %}
-<form class="form-horizontal" role="form" method="POST">
-    <legend>Change E-Mail Adress</legend>
-    {{ form.hidden_tag() }}
-    {{ horizontal_field(form.old_email)}}
-    {{ horizontal_field(form.new_email)}}
-    {{ horizontal_field(form.confirm_new_email)}}
 
-    <div class="form-group row">
-        <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-success">Save</button>
-        </div>
+<div class="tab-content col-md-10 col-sm-10 col-xs-9 col-md-offset-2">
+    <div class="tab-pane active">
+        <form class="form-horizontal" role="form" method="POST">
+            <div class="row">
+                {{ form.hidden_tag() }}
+                <div class="profile-password col-md-12 col-sm-12 col-xs-12">
+
+                    <h4>Change E-Mail Address</h4>
+
+                    {{ horizontal_field(form.old_email, label_class="col-lg-3", div_class="col-lg-5") }}
+                    {{ horizontal_field(form.new_email, label_class="col-lg-3", div_class="col-lg-5") }}
+                    {{ horizontal_field(form.confirm_new_email, label_class="col-lg-3", div_class="col-lg-5") }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
 {% endblock %}

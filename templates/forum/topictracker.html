@@ -86,10 +86,6 @@
         <div class="inbox">
             <div class="pagepost clearfix">
                 {{ render_pagination(topics, url_for('forum.topictracker')) }}
-
-                {% if current_user|post_topic(forum) %}
-
-                {% endif %}
             </div>
             <ul class="breadcrumb">
                 <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
