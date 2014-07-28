@@ -2,83 +2,101 @@
 {% set active_forum_nav=True %}
 
 {% extends theme("layout.html") %}
-{% from theme('macros.html') import render_pagination %}
-
 {% block content %}
-<ul class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li class="active">Tracked Topics</li>
-</ul>
+{% from theme('macros.html') import render_pagination, topic_pages %}
 
-<div class="pull-left" style="padding-bottom: 10px">
-    {{ render_pagination(topics, url_for('forum.topictracker')) }}
-</div> <!-- end span pagination -->
+<div id="brdmain">
+
+    <!-- Top -->
+    <div id="brdtop">
+        <div class="inbox clearfix">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li class="active">Tracked Topics</li>
+            </ul>
+
+            <div class="pagepost clearfix">
+                {{ render_pagination(topics, url_for('forum.topictracker')) }}
+            </div>
+        </div>
+    </div>
 
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th colspan="5">
-                Topic Tracker
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="2">Thread</td>
+    <!-- Middle -->
+    <div id="vf" class="vfx">
 
-            <td>Posts</td>
+        <h2 class="forum-title"><span>Topic Tracker</span></h2>
 
-            <td>Views</td>
-
-            <td>Last Post</td>
-        </tr>
+        <div class="row vfx-header">
+            <div class="col-md-6 col-sm-6 col-xs-6">Topic</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Replies</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Views</div>
+            <div class="col-md-4 col-sm-4 col-xs-4">Last post</div>
+        </div>
 
         {% for topic, topicread in topics.items %}
-        <tr>
-            <td width="4%">
 
-            {% if topic|topic_is_unread(topicread, current_user) %}
-                <span class="fa fa-comment" style="font-size: 2em"></span>
+        <div class="row vfx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+            {% if topic.locked %}
+                <div class="vfx-icon vfx-icon-locked pull-left"></div>
             {% else %}
-                <span class="fa fa-comment-o" style="font-size: 2em"></span>
+
+            {% if topic|topic_is_unread(topicread, current_user, forumsread) %}
+                <div class="vfx-icon vfx-icon-unread pull-left"></div>
+            {% else %}
+                <div class="vfx-icon vfx-icon-read pull-left"></div>
             {% endif %}
 
-            </td>
-            <td>
-                <div>
-                    <a href="{{ topic.url }}">{{ topic.title }}</a> <br />
-                    {% if topic.user_id %}
-                    <small>by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></small>
-                    {% else %}
-                    <small>by {{ topic.username }}</small>
-                    {% endif %}
-                </div>
-            </td>
-            <td>
-                {{ topic.post_count }}
-            </td>
-            <td>
-                {{ topic.views }}
-            </td>
-            <td>
-                <a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a><br />
+            {% endif %}
+
+                <h4 class="topic-title">
+                    <a href="{{ topic.url }}">{{ topic.title }}</a>
+                    <span class="byuser">by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></span>
+                </h4>
+            </div>
+            <span class="pagestext">{{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}</span>
+
+            <div class="topic-replies col-md-1 col-sm-1 col-xs-1">{{ topic.post_count }}</div>
+            <div class="topic-views col-md-1 col-sm-1 col-xs-1">{{ topic.views }}</div>
+            <div class="topic-last-post col-md-4 col-sm-4 col-xs-4"><a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a>
+                <span class="byuser">
                 {% if topic.last_post.user_id %}
-                <small>by <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a></small>
+                    by <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a>
                 {% else %}
-                {{ topic.last_post.username }}
+                    by {{ topic.last_post.username }}
                 {% endif %}
-            </td>
-        </tr>
+                </span>
+            </div>
+        </div>
         {% else %}
-        <tr>
-            <td colspan="5">
-                No Topics so far.
-            </td>
-        </tr>
+
+        <div class="row vfx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">No Topics.</div>
+            <div class="topic-replies col-md-1 col-sm-1 col-xs-1">-</div>
+            <div class="topic-views col-md-1 col-sm-1 col-xs-1">-</div>
+            <div class="topic-last-post col-md-4 col-sm-4 col-xs-4">-</div>
+        </div>
+
         {% endfor %}
+    </div>
 
-    </tbody>
-</table>
+    <!-- Bottom -->
+    <div id="brdbottom">
+        <div class="inbox">
+            <div class="pagepost clearfix">
+                {{ render_pagination(topics, url_for('forum.topictracker')) }}
 
+                {% if current_user|post_topic(forum) %}
+
+                {% endif %}
+            </div>
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li class="active">Tracked Topics</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

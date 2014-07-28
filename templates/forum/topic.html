@@ -152,7 +152,7 @@
                     <!-- Quick quote -->
                         <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="pid{{ post.id }}" title="" data-original-title="Quote this post"></a>
                     <!-- Full quote/reply -->
-                        <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all quote_btn" data-placement="top" title="" data-original-title="Full Reply"></a>
+                        <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all" data-placement="top" title="" data-original-title="Full Reply"></a>
                     {% endif %}
 
                     {% if current_user|edit_post(post.user_id, topic.forum) %}

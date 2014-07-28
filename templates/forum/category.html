@@ -4,10 +4,14 @@
 {% extends theme("layout.html") %}
 {% block content %}
 
-<ol class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li class="active">{{ category.title }}</li>
-</ol>
+<div id="brdtop">
+    <div class="inbox clearfix">
+        <ul class="breadcrumb">
+            <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+            <li class="active">{{ category.title }}</li>
+        </ul>
+    </div>
+</div>
 
 {% include theme("forum/category_layout.html") %}
 
