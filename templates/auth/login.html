@@ -8,8 +8,8 @@
     <h2>Login</h2>
     <hr>
     {{ form.hidden_tag() }}
-    {{ horizontal_field(form.login, label_class="col-sm-4")}}
-    {{ horizontal_field(form.password, label_class="col-sm-4")}}
+    {{ horizontal_field(form.login)}}
+    {{ horizontal_field(form.password)}}
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
@@ -34,7 +34,5 @@
         </div>
     </div>
 </form>
-
-
 
 {% endblock %}
