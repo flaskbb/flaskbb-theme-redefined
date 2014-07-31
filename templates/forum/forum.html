@@ -76,10 +76,9 @@
                 <h4 class="topic-title">
                     <a href="{{ topic.url }}">{{ topic.title }}</a>
                     <span class="byuser">by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></span>
+                    <span class="pagestext">{{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}</span>
                 </h4>
             </div>
-            <span class="pagestext">{{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}</span>
-
             <div class="topic-replies col-md-1 col-sm-1 col-xs-1">{{ topic.post_count }}</div>
             <div class="topic-views col-md-1 col-sm-1 col-xs-1">{{ topic.views }}</div>
             <div class="topic-last-post col-md-4 col-sm-4 col-xs-4"><a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a>
