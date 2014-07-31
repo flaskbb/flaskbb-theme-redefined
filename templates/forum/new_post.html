@@ -27,7 +27,6 @@
             <h2 class="topic-title">{{ topic.title }}</h2>
 
             <div id="post-new" class="post post-new post-bg clearfix">
-
                 <div class="author-box col-md-2">
                     <div class="author-name"><h4><a href="{{ current_user.url }}">{{ current_user.username }}</a></h4></div>
                     <div class="author-title"><h5>{{ current_user.primary_group.name }}</h5></div>
@@ -56,15 +55,29 @@
                                 {{ render_boolean_field(form.track_topic) }}
                             </div>
                             <div class="text-right col-md-4">
-                                <input class="btn btn-success" type="submit" value="Submit" />
+                                <button type="submit" class="btn btn-success" name="button" value="reply">Reply</button>
+                                <button type="submit" class="btn btn-success" name="button" value="preview">Preview</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% if preview %}
+                <div class="post-preview">
+                    <div class="post-box col-md-10 col-md-offset-2">
+                        <div class="post-meta clearfix">
+                            <div class="pull-left"><h4>Post Preview</h4></div>
+                        </div>
+                        <div class="post-content">
+                            {% autoescape false %}
+                            {{ preview|markup }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
         </form>
-
     </div>
 
 </div>

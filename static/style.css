@@ -677,6 +677,12 @@ a, a:hover, a:focus, a:active {
 	position: relative;
 }
 
+.post-preview .post-box {
+	margin-top: 1em;
+	background: #fff;
+	position: relative;
+}
+
 .post-footer {
 	border-top: 1px solid #e8ecf1;
 	bottom: 0;
