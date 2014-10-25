@@ -10,7 +10,7 @@
     <div class="inbox clearfix">
       <ul class="breadcrumb">
           <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-          <li class="active">Memberlist</li>
+          <li class="active">User list</li>
       </ul>
     </div>
   </div>
@@ -32,7 +32,7 @@
     <div id="userlist" class="userlist clearfix">
 
       <div class="user-search col-md-12 text-center">
-        <form class="form-inline">
+        <form class="form-inline" method="post">
           {{ search_form.hidden_tag() }}
           <div class="form-group">
             {{ group_field(search_form.search_query) }}
