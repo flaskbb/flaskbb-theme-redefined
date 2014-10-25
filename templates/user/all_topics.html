@@ -1,66 +1,75 @@
 {% extends theme('layout.html') %}
-{% from theme('macros.html') import render_pagination %}
+{% from theme('macros.html') import render_pagination, topic_pages %}
 
 {% block content %}
-<ul class="breadcrumb">
-    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-    <li ><a href="{{ url_for('user.profile', username=user.username) }}">{{ user.username }}</a></li>
-    <li class="active">All Topics</li>
-</ul>
+<div class="brdmain">
 
-<div class="pull-left">
-    {{ render_pagination(topics, url_for('user.view_all_topics', username=user.username)) }}
-</div> <!-- end span pagination -->
+    <!-- Top -->
+    <div id="brdtop">
+        <div class="inbox clearfix">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li ><a href="{{ url_for('user.profile', username=user.username) }}">{{ user.username }}</a></li>
+                <li class="active">All Topics</li>
+            </ul>
 
+            <div class="pagepost clearfix">
+                {{ render_pagination(topics, url_for('user.view_all_topics', username=user.username)) }}
+            </div>
+        </div>
+    </div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th colspan="5">
-                All Topics created by {{ user.username }}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="2">Thread</td>
+    <!-- Middle -->
+    <div id="vf" class="vfx">
 
-            <td>Posts</td>
+        <h2 class="forum-title"><span>All Topics created by <a href="{{ user.url }}">{{ user.username }}</a></span></h2>
 
-            <td>Views</td>
-
-            <td>Last Post</td>
-        </tr>
+        <div class="row vfx-header">
+            <div class="col-md-6 col-sm-6 col-xs-6">Topic</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Replies</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">Views</div>
+            <div class="col-md-4 col-sm-4 col-xs-4">Last post</div>
+        </div>
 
         {% for topic in topics.items %}
-        <tr>
-            <td width="4%"></td>
-            <td>
-                <div>
-                    <a href="{{ topic.url }}">{{ topic.title }}</a> <br />
-                    <small>by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></small>
-                </div>
-            </td>
-            <td>
-                {{ topic.post_count }}
-            </td>
-            <td>
-                {{ topic.views }}
-            </td>
-            <td>
-                <a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a><br />
-                <small>by <a href="{{ topic.last_post.user.username }}">{{ topic.last_post.user.username }}</a></small>
-            </td>
-        </tr>
+
+        <div class="row vfx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+            {% if topic.locked %}
+                <div class="vfx-icon vfx-icon-locked pull-left"></div>
+            {% else %}
+                <div class="vfx-icon vfx-icon-read pull-left"></div>
+            {% endif %}
+
+                <h4 class="topic-title">
+                    <a href="{{ topic.url }}">{{ topic.title }}</a>
+                    <span class="byuser">by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></span>
+                    <span class="pagestext">{{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}</span>
+                </h4>
+            </div>
+            <div class="topic-replies col-md-1 col-sm-1 col-xs-1">{{ topic.post_count }}</div>
+            <div class="topic-views col-md-1 col-sm-1 col-xs-1">{{ topic.views }}</div>
+            <div class="topic-last-post col-md-4 col-sm-4 col-xs-4"><a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a>
+                <span class="byuser">
+                {% if topic.last_post.user_id %}
+                    by <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a>
+                {% else %}
+                    by {{ topic.last_post.username }}
+                {% endif %}
+                </span>
+            </div>
+        </div>
         {% else %}
-        <tr>
-            <td colspan="5">
-                No Topics so far.
-            </td>
-        </tr>
+
+        <div class="row vfx-content">
+            <div class="col-md-6 col-sm-6 col-xs-6">No Topics.</div>
+            <div class="topic-replies col-md-1 col-sm-1 col-xs-1">-</div>
+            <div class="topic-views col-md-1 col-sm-1 col-xs-1">-</div>
+            <div class="topic-last-post col-md-4 col-sm-4 col-xs-4">-</div>
+        </div>
+
         {% endfor %}
+    </div>
 
-    </tbody>
-</table>
-
+</div>
 {% endblock %}
