@@ -4,10 +4,19 @@
 {% block content %}
     {% from theme('macros.html') import render_pagination, group_field, topic_pages %}
 
-    <ul class="breadcrumb">
-        <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-        <li class="active">Search</li>
-    </ul>
+<div id="brdmain">
+
+  <div id="brdtop">
+    <div class="inbox clearfix">
+      <ul class="breadcrumb">
+          <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+          <li class="active">Search</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div id="vt" class="vtx">
 
     {% if result['post'] %}
         <h3>Posts</h3>
@@ -74,34 +83,27 @@
     {% endif %}
 
     {% if result['user'] %}
-        <h3>Users</h3>
+    <h2 class="topic-title"><span>User</span></h2>
+        <div id="userlist" class="userlist clearfix">
 
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Username</th>
-                <th>Posts</th>
-                <th>Date registered</th>
-                <th>Group</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in result['user'].all() %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td><a href="{{ user.url }}">{{ user.username }}</a></td>
-                    <td>{{ user.post_count }}</td>
-                    <td>{{ user.date_joined|format_date('%b %d %Y') }}</td>
-                    <td>{{ user.primary_group.name }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">No users found matching your search criteria</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+          {% for user in result['user'] %}
+          <div class="user-badge col-md-12 badge-list">
+            <div class="user-avatar col-md-4">
+              {% if user.avatar %}
+              <img src="{{ user.avatar }}" alt="" />
+              {% endif %}
+            </div>
+            <div class="user-detail col-md-11 clearfix">
+              <div class="user-name col-md-4"><h4><a href="{{ user.url }}">{{ user.username }}</a></h4></div>
+              <div class="user-title col-md-4"><h5>{{ user.primary_group.name }}</h5></div>
+              <div class="user-meta col-md-4">
+                <span class="user-registered">{{ user.date_joined|format_date('%b %d %Y') }}</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div> <!-- userlist -->
     {% endif %}
 
     {% if result['topic'] %}
@@ -266,4 +268,17 @@
         </table>
     {% endif %}
 
+  </div>
+
+  <div id="brdbottom">
+    <div class="inbox">
+
+      <ul class="breadcrumb">
+          <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+          <li class="active">Search</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
