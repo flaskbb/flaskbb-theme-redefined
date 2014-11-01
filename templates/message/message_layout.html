@@ -3,7 +3,6 @@
 {%- from theme('macros.html') import navlink with context -%}
 
 <div id="brdmain">
-
     <!-- Top -->
     <div id="brdtop">
         <div class="inbox clearfix">
@@ -16,22 +15,22 @@
     </div>
 
 
-<div class="row">
-    <div class="col-sm-3">
-        <div class="sidebar">
-            <ul class="nav sidenav">
-                <li class="nav-header">Options | <small><a href="{{ url_for('user.new_message') }}">New PM</a></small></li>
-                {{ navlink('user.inbox', 'Inbox') }}
-                {{ navlink('user.sent', 'Sent') }}
-                {{ navlink('user.drafts', 'Drafts') }}
-                {{ navlink('user.trash', 'Trash') }}
-            </ul>
-        </div><!--/.sidebar -->
-    </div><!--/.col-sm-3 -->
-    <div class="col-sm-9">
-        {% block message_content %}{% endblock %}
-    </div><!--/.col-sm-9 -->
-</div><!--/.row -->
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar">
+                <ul class="nav sidenav">
+                    <li class="nav-header">Options | <small><a href="{{ url_for('user.new_message') }}">New PM</a></small></li>
+                    {{ navlink('user.inbox', 'Inbox') }}
+                    {{ navlink('user.sent', 'Sent') }}
+                    {{ navlink('user.drafts', 'Drafts') }}
+                    {{ navlink('user.trash', 'Trash') }}
+                </ul>
+            </div><!--/.sidebar -->
+        </div><!--/.col-sm-3 -->
+        <div class="col-sm-9">
+            {% block message_content %}{% endblock %}
+        </div><!--/.col-sm-9 -->
+    </div><!--/.row -->
 
 </div>
 {% endblock %}

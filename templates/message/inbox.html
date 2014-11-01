@@ -2,38 +2,53 @@
 
 {% extends theme("message/message_layout.html") %}
 {% block message_content %}
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>From</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for message in messages %}
-        <tr>
-        {% if message.from_user %}
-            <td><a href="{{ url_for('user.profile', username=message.from_user.username) }}">{{ message.from_user.username }}</a></td>
-        {% else %}
-            <td>[deleted]</td>
-        {% endif %}
-            <td>
-                <a href="{{ url_for('user.view_message', message_id=message.id) }}">
-                    {% if message.unread %}<strong>{{ message.subject }}</strong>{% else %}{{ message.subject }}{% endif %}
-                </a>
-            </td>
-            <td>{{ message.date_created|time_since }}</td>
-            <td><a href="{{ url_for('user.move_message', message_id=message.id) }}">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="4">
-                This message folder is empty.
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div id="vf" class="vfx">
+
+    <h2 class="forum-title"><span>{{ page_title }}</span></h2>
+
+    <div class="row vfx-header">
+        <div class="col-md-2 col-sm-2 col-xs-2">From</div>
+        <div class="col-md-4 col-sm-4 col-xs-4">Subject</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Date</div>
+        <div class="col-md-4 col-sm-4 col-xs-4">Options</div>
+    </div>
+
+
+    {% for message in messages %}
+    <div class="row vfx-content">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            {% if message.unread %}
+            <div class="msg-icon msg-icon-unread pull-left"></div>
+            {% else %}
+            <div class="msg-icon msg-icon-read pull-left"></div>
+            {% endif %}
+
+            {% if message.from_user %}
+                <a href="{{ url_for('user.profile', username=message.from_user.username) }}">{{ message.from_user.username }}</a>
+            {% else %}
+                [deleted]
+            {% endif %}
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <a href="{{ url_for('user.view_message', message_id=message.id) }}">
+                {% if message.unread %}<strong>{{ message.subject }}</strong>{% else %}{{ message.subject }}{% endif %}
+            </a>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            {{ message.date_created|time_since }}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <a href="{{ url_for('user.move_message', message_id=message.id) }}">Delete</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="row vfx-content">
+        <div class="col-md-4 col-sm-4 col-xs-4">This message folder is empty.</div>
+        <div class="col-md-2 col-sm-2 col-xs-2"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2">-</div>
+        <div class="col-md-4 col-sm-4 col-xs-4">-</div>
+    </div>
+    {% endfor %}
+
+</div>
 {% endblock %}
