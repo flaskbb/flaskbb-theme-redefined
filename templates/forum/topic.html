@@ -38,7 +38,7 @@
                 </a>
                 {% endif %}
 
-                {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
+                {% if current_user|post_reply(topic) %}
                 <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
                     <span class="fa fa-pencil"></span> Reply
                 </a>
@@ -46,12 +46,12 @@
             </div>
         {% endif %}
             <div class="btn-group postlink pull-right">
-            {% if current_user|delete_topic(topic.first_post.user_id, topic.forum) %}
+            {% if current_user|delete_topic(topic) %}
                 <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-danger">
                     <span class="fa fa-trash-o"></span> Delete Topic
                 </a>
             {% endif %}
-            {% if current_user|can_moderate(topic.forum) %}
+            {% if current_user|can_moderate(topic) %}
                 {% if not topic.locked %}
                     <a href="{{ url_for('forum.lock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
                         <span class="fa fa-lock"></span> Lock Topic
@@ -148,23 +148,23 @@
                     <!-- Report/Edit/Delete/Quote Post-->
                     <div class="post-menu pull-right col-md-3 col-sm-3 col-xs-3 ">
 
-                    {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
+                    {% if current_user|post_reply(topic) %}
                     <!-- Quick quote -->
                         <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="pid{{ post.id }}" title="" data-original-title="Quote this post"></a>
                     <!-- Full quote/reply -->
                         <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all" data-placement="top" title="" data-original-title="Full Reply"></a>
                     {% endif %}
 
-                    {% if current_user|edit_post(post.user_id, topic.forum) %}
+                    {% if current_user|edit_post(post) %}
                     <!-- Edit Post -->
                     <a href="{{ url_for('forum.edit_post', post_id=post.id) }}" class="tip btn post-edit" data-placement="top" title="" data-original-title="Edit this post"></a>
                     {% endif %}
                     {% if topic.first_post_id == post.id %}
-                        {% if current_user|delete_topic(topic.first_post.user_id, topic.forum) %}
+                        {% if current_user|delete_topic(topic) %}
                         <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this topic"></a>
                         {% endif %}
                     {% else %}
-                        {% if current_user|delete_post(post.user_id, topic.forum) %}
+                        {% if current_user|delete_post(post) %}
                     <!-- Delete Post -->
                         <a href="{{ url_for('forum.delete_post', post_id=post.id) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></a>
                         {% endif %}
@@ -201,7 +201,7 @@
                         </a>
                         {% endif %}
 
-                        {% if current_user|post_reply(topic.forum) and not (topic.locked or topic.forum.locked) %}
+                        {% if current_user|post_reply(topic) %}
                         <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
                             <span class="fa fa-pencil"></span> Reply
                         </a>
