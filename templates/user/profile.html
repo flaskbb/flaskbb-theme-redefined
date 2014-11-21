@@ -15,12 +15,12 @@
     <div class="row">
         <!-- left column -->
         <div class="col-md-2 col-sm-2 col-xs-2">
-            <div class="panel profile-widget">
-                <div class="panel-heading profile-widget-header">
+            <div class="panel panel-widget">
+                <div class="panel-heading panel-widget-heading">
                     <a href="{{ user.url }}">{{ user.username }}</a>
                 </div>
 
-                <div class="panel-body profile-widget-content">
+                <div class="panel-body panel-widget-body">
                     <div class="profile-picture">
                         {% if user.avatar %}
                         <img src="{{ user.avatar }}" alt="Avatar" class="profile-avatar">
@@ -56,9 +56,9 @@
 
         <!-- middle column -->
         <div class="col-md-7 col-sm-7 col-xs-7">
-            <div class="panel profile-widget">
-                <div class="panel-heading profile-widget-header">Info</div>
-                <div class="panel-body profile-widget-content">
+            <div class="panel panel-widget">
+                <div class="panel-heading panel-widget-heading">Info</div>
+                <div class="panel-body panel-widget-body">
 
                     {% if user.notes %}
                         {{ user.notes|markup|safe }}
@@ -70,9 +70,9 @@
             </div> <!-- end profile widget -->
 
             {% if user.signature %}
-            <div class="panel profile-widget">
-                <div class="panel-heading profile-widget-header">Signature</div>
-                <div class="panel-body profile-widget-content">
+            <div class="panel panel-widget">
+                <div class="panel-heading panel-widget-heading">Signature</div>
+                <div class="panel-body panel-widget-body">
 
                     {{ user.signature|markup|safe }}
 
@@ -84,9 +84,9 @@
 
         <!-- right column -->
         <div class="col-md-3 col-sm-2 col-xs-2">
-            <div class="panel profile-widget">
-                <div class="panel-heading profile-widget-header">User Stats</div>
-                <div class="panel-body profile-widget-content">
+            <div class="panel panel-widget">
+                <div class="panel-heading panel-widget-heading">User Stats</div>
+                <div class="panel-body panel-widget-body">
 
                 <div class="profile-stats-field">
                         <div class="col-md-5 col-sm-6 col-xs-6"><p class="stats-right">Group:</p></div>
@@ -130,7 +130,7 @@
                     </div>
 
                 </div>
-            </div> <!-- end profile-widget -->
+            </div> <!-- end panel-widget -->
 
         </div> <!-- end col -->
     </div> <!-- end row -->

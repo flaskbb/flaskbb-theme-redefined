@@ -10,7 +10,6 @@
 /*
  * Basics
  */
-
 body {
     background: #F6F9FC;
     font-family: 'Source Sans Pro', sans-serif;
@@ -30,16 +29,9 @@ a, a:hover, a:focus, a:active {
     text-decoration: none;
 }
 
-
-.profile-link {
-    color: #fff;
-}
-
-
 /*
  * BRDHEADER
  */
-
 #brdheader {
     background-image: linear-gradient(right bottom, rgb(66,138,202) 0%, rgb(40,61,103) 100%);
     background-image: -o-linear-gradient(right bottom, rgb(66,138,202) 0%, rgb(40,61,103) 100%);
@@ -288,10 +280,8 @@ a, a:hover, a:focus, a:active {
 /*
  * BRDMAIN
  */
-
 .idx,
-.vfx,
-.ufx {
+.vfx {
     background-image: linear-gradient(right bottom, rgb(66,138,202) 0%, rgb(40,61,103) 100%);
     background-image: -o-linear-gradient(right bottom, rgb(66,138,202) 0%, rgb(40,61,103) 100%);
     background-image: -moz-linear-gradient(right bottom, rgb(66,138,202) 0%, rgb(40,61,103) 100%);
@@ -623,7 +613,6 @@ a, a:hover, a:focus, a:active {
 /*
  * BRDPOSTS
  */
-
 .vtx .topic-title {
     background: url(./idx-header.jpg) center top no-repeat;
     border: 1px solid #cad7e1;
@@ -791,7 +780,6 @@ a, a:hover, a:focus, a:active {
  */
 
 /* Right to left Post */
-
 .post-rtl .author-box {
     padding-left: 2em;
     padding-right: 0;
@@ -826,7 +814,6 @@ a, a:hover, a:focus, a:active {
 }
 
 /* Left to right Post */
-
 .post:not(.post-rtl) .post-box::after {
     border: 12px solid transparent;
     border-right-color: #fff;
@@ -846,7 +833,6 @@ a, a:hover, a:focus, a:active {
 }
 
 /* Backgrounded Post */
-
 .post-bg {
     background: #e8ecf1;
     border: 1px solid #cad7e1;
@@ -859,7 +845,6 @@ a, a:hover, a:focus, a:active {
 }
 
 /* New Post Message */
-
 #quickpost .post-box {
     min-height: 10em;
     padding-bottom: 1.5em;
@@ -878,7 +863,6 @@ a, a:hover, a:focus, a:active {
 }
 
 /* Post options */
-
 .post-options {
     margin-top: 0.5em;
 }
@@ -887,31 +871,8 @@ a, a:hover, a:focus, a:active {
 /*
  * BRDPROFILE
  */
-
-.profile-widget {
-  border-color: #cad7e1;
-}
-
-.profile-widget > .profile-widget-header {
-    font-weight: bold;
-    color: #858a8e;
-    background-color: #f6f9fc;
-    border-color: #e8ecf1;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-}
-
-.profile-widget > .profile-widget-header + .panel-collapse > .panel-body {
-    border-top-color: #cad7e1;
-}
-
-.profile-widget > .profile-widget-header .badge {
-    color: #f5f5f5;
-    background-color: #f6f9fc;
-}
-
-.profile-widget-content {
-    margin: -0.5em;
+.profile-link {
+    color: #fff;
 }
 
 .profile-avatar {
@@ -965,7 +926,6 @@ a, a:hover, a:focus, a:active {
 }
 
 /* Profile editor */
-
 .profile-editor {
     background: #fff;
     border: 1px solid #cad7e1;
@@ -984,50 +944,12 @@ a, a:hover, a:focus, a:active {
     padding-bottom: 0.5em;
 }
 
-.profile-editor .profile-socials .input-group,
-.profile-editor .profile-socials .form-group {
-    margin-bottom: 1em;
-}
-
-.profile-editor .profile-socials .icon-facebook::before,
-.profile-editor .profile-socials .icon-twitter::before,
-.profile-editor .profile-socials .icon-googleplus::before,
-.profile-editor .profile-socials .icon-skype::before {
-    font-family: 'FontAwesome';
-    font-size: 3.25em;
-    line-height: 0.25em;
-    position: relative;
-    top: 0.1em;
-}
-
-.profile-editor .profile-socials .icon-facebook::before {
-    content: '\f30d';
-}
-
-.profile-editor .profile-socials .icon-twitter::before {
-    content: '\f30a';
-}
-
-.profile-editor .profile-socials .icon-googleplus::before {
-    content: '\f310';
-}
-
-.profile-editor .profile-socials .icon-skype::before {
-    content: '\f33a';
-}
-
 .profile-editor .profile-signature h4,
 .profile-editor .profile-location h4 {
     margin-top: 2em;
 }
 
-.profile-editor .profile-location iframe {
-    min-height: 24em;
-    width: 100%;
-}
-
 /* Profile editor display */
-
 .profile-editor .checkbox {
     padding-left: 2.5em;
 }
@@ -1097,6 +1019,29 @@ a, a:hover, a:focus, a:active {
     content: '\e729';
 }
 
+
+/*
+ * PM
+ */
+.vfx .msg-icon {
+    font-family: 'FontAwesome';
+    width: 1.5em;
+}
+
+.vfx .msg-icon-read::before {
+    color: #d4d9dd;
+    content: "\f075";
+}
+
+.vfx .msg-icon-unread::before {
+    color: #e24040;
+    content: "\f075";
+}
+
+
+/*
+ * USER LIST
+ */
 .userlist {
     background: #fff;
     border: 1px solid #cad7e1;
@@ -1309,8 +1254,38 @@ a, a:hover, a:focus, a:active {
 
 
 /*
- * SIDEBAR
+ * MISC
  */
+
+/* Panel Widget */
+.panel-widget {
+  border-color: #cad7e1;
+}
+
+.panel-widget > .panel-widget-heading {
+    font-weight: bold;
+    color: #858a8e;
+    background-color: #f6f9fc;
+    border-color: #e8ecf1;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.panel-widget > .panel-widget-heading + .panel-collapse > .panel-body {
+    border-top-color: #cad7e1;
+}
+
+.panel-widget > .panel-widget-heading .badge {
+    color: #f5f5f5;
+    background-color: #f6f9fc;
+}
+
+.panel-widget-body {
+    margin: -0.5em;
+}
+
+
+/* Sidebar */
 
  /* Nav Header - Got these lines from bootstrap 2.3.2 */
 .nav-header {
@@ -1414,20 +1389,4 @@ a, a:hover, a:focus, a:active {
   .sidebar.affix {
     width: 263px;
   }
-}
-
-
-.vfx .msg-icon {
-    font-family: 'FontAwesome';
-    width: 1.5em;
-}
-
-.vfx .msg-icon-read::before {
-    color: #d4d9dd;
-    content: "\f075";
-}
-
-.vfx .msg-icon-unread::before {
-    color: #e24040;
-    content: "\f075";
 }
