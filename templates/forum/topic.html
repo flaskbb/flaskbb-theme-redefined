@@ -67,25 +67,25 @@
         </div>
 
 
-        {% for post in posts.items %}
+        {% for post, user in posts.items %}
 
         <div id="{{ post.id }}" class="post post-bg clearfix">
 
             <div class="author-box col-md-2 col-sm-2 col-xs-2">
                 <!-- Registered User -->
                 {% if post.user_id %}
-                <div class="author-name"><h4><a href="{{ post.user.url }}">{{ post.user.username }}</a></h4></div>
-                <div class="author-title"><h5>{{ post.user.primary_group.name }}</h5></div>
+                <div class="author-name"><h4><a href="{{ user.url }}">{{ user.username }}</a></h4></div>
+                <div class="author-title"><h5>{{ user.primary_group.name }}</h5></div>
 
-                {% if post.user.avatar %}
-                    <div class="author-avatar"><img src="{{ post.user.avatar }}" width="100" height="100" alt=""></div>
+                {% if user.avatar %}
+                    <div class="author-avatar"><img src="{{ user.avatar }}" width="100" height="100" alt=""></div>
                 {% endif %}
 
-                <div class="author-field author-registered">Joined: {{ post.user.date_joined|format_date('%b %d %Y') }}</div>
-                <div class="author-field author-posts">Posts: {{ post.user.post_count }}</div>
+                <div class="author-field author-registered">Joined: {{ user.date_joined|format_date('%b %d %Y') }}</div>
+                <div class="author-field author-posts">Posts: {{ user.post_count }}</div>
                 <div class="author-field author-email">
                     {% if current_user.is_authenticated() and post.user_id %}
-                    <a href="{{ url_for('user.new_message') }}?to_user={{ post.user.username }}">PM</a>
+                    <a href="{{ url_for('user.new_message') }}?to_user={{ user.username }}">PM</a>
                     {% endif %}
 
                     {%- if post.user|is_online %}
@@ -94,12 +94,12 @@
                     <div class="author-offline"> </div>
                     {%- endif %}
                 </div>
-                {% if post.user.website %}
-                <div class="author-field author-website"><a href="{{ post.user.website }}" rel="nofollow">Website</a></div>
+                {% if user.website %}
+                <div class="author-field author-website"><a href="{{ user.website }}" rel="nofollow">Website</a></div>
                 {% endif %}
 
                 {% else %}
-                <div class="author-name"><h4><a href="{{ post.user.url }}">{{ post.username }}</a></h4></div>
+                <div class="author-name"><h4><a href="{{ user.url }}">{{ post.username }}</a></h4></div>
                 <div class="author-title"><h5>Guest</h5></div>
                 {% endif %}
             </div>
@@ -138,8 +138,8 @@
                     <div class="post-signature pull-left col-md-9 col-md-9 col-xs-9">
 
                     <!-- Signature Begin -->
-                    {% if post.user_id and post.user.signature %}
-                        {{ post.user.signature|markup|safe }}
+                    {% if post.user_id and user.signature %}
+                        {{ user.signature|markup|safe }}
                     {% endif %}
                     <!-- Signature End -->
 
