@@ -88,7 +88,7 @@
                     <a href="{{ url_for('user.new_message') }}?to_user={{ user.username }}">PM</a>
                     {% endif %}
 
-                    {%- if post.user|is_online %}
+                    {%- if user|is_online %}
                     <div class="author-online"></div>
                     {%- else %}
                     <div class="author-offline"> </div>
