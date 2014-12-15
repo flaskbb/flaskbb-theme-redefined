@@ -59,18 +59,22 @@
 
         {% for topic, topicread in topics.items %}
 
-        <div class="row vfx-content">
+        <div class="row vfx-content {% if topic.important %}vfx-sticky{% endif %}">
             <div class="col-md-6 col-sm-6 col-xs-6">
             {% if topic.locked %}
                 <div class="vfx-icon vfx-icon-locked pull-left"></div>
+            {% elif topic.important %}
+                {% if topic|topic_is_unread(topicread, current_user, forumsread) %}
+                    <span class="vfx-icon vfx-icon-star-unread pull-left"></span>
+                {% else %}
+                    <span class="vfx-icon vfx-icon-star-read pull-left"></span>
+                {% endif %}
             {% else %}
-
-            {% if topic|topic_is_unread(topicread, current_user, forumsread) %}
-                <div class="vfx-icon vfx-icon-unread pull-left"></div>
-            {% else %}
-                <div class="vfx-icon vfx-icon-read pull-left"></div>
-            {% endif %}
-
+                {% if topic|topic_is_unread(topicread, current_user, forumsread) %}
+                    <div class="vfx-icon vfx-icon-unread pull-left"></div>
+                {% else %}
+                    <div class="vfx-icon vfx-icon-read pull-left"></div>
+                {% endif %}
             {% endif %}
 
                 <h4 class="topic-title">

@@ -461,6 +461,16 @@ a, a:hover, a:focus, a:active {
     content: "\f023";
 }
 
+.vfx .vfx-icon-star-read::before {
+    color: #d4d9dd;
+    content: "\f006";
+}
+
+.vfx .vfx-icon-star-unread::before {
+    color: #e24040;
+    content: "\f005";
+}
+
 .vfx-content {
     padding: 0.25em 0;
 }

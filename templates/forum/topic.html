@@ -29,12 +29,12 @@
         {% if current_user.is_authenticated() %}
             <div class="btn-group postlink pull-right">
                 {% if current_user.is_tracking_topic(topic) %}
-                <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
+                <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-tag">
                     </span> Untrack Topic
                 </a>
                 {% else %}
                 <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
-                    <span class="fa fa-star"></span> Track Topic
+                    <span class="fa fa-tag"></span> Track Topic
                 </a>
                 {% endif %}
 
@@ -61,6 +61,17 @@
                         <span class="fa fa-unlock"></span> Unlock Topic
                     </a>
                 {% endif %}
+
+                {% if not topic.important %}
+                    <a href="{{ url_for('forum.highlight_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-success">
+                            <span class="fa fa-star"></span> Highlight Topic
+                </a>
+                {% else %}
+                    <a href="{{ url_for('forum.trivialize_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-success">
+                        <span class="fa fa-star-o"></span> Trivialize Topic
+                </a>
+                {% endif %}
+
             {% endif %}
             </div>
 
