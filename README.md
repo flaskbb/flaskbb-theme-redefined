@@ -1,19 +1,17 @@
 flaskbb-theme-redefined
 =======================
 
-** This theme is not finished yet. Ideas? --> Open a new [Issue](https://github.com/sh4nks/flaskbb-theme-redefined/issues)/[Pull Request](https://github.com/sh4nks/flaskbb-theme-redefined/pulls).
+_Still in Development_
 
 ## TODO
  * Complete redesign of the Administration/Management Panel
- * Search in the User List is not working at the moment
  * Search Form Redesign
- * Private Message Redesign
 
 ## About
-This theme is based upon the awesome FluxBB theme 'redefined'.
+This theme is based upon the awesome FluxBB theme [redefined](https://github.com/CaerCam/FluxBB-Redefined).
 
 ## License
-This theme is GPL licensed because I use code from the other theme.
+GPLv3
 
 ## Links
  * Development: http://github.com/Askelon/FluxBB-Redefined
