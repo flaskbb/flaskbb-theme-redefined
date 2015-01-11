@@ -667,11 +667,13 @@ a, a:hover, a:focus, a:active {
 }
 
 .author-name h4 {
+    float: left;
     margin-bottom: 0;
 }
 
 .author-title h5 {
     margin-top: 0;
+    clear: both;
 }
 
 .author-avatar {
@@ -686,6 +688,26 @@ a, a:hover, a:focus, a:active {
 
 .author-icon {
     display: inline-block;
+}
+
+.author-online {
+    margin-top: 0.75em;
+    margin-left: 0.25em;
+    float: left;
+    background: #5cb85c;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+}
+
+.author-offline {
+    margin-top: 0.75em;
+    margin-left: 0.25em;
+    float: left;
+    background: #777;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
 }
 
 .post-meta {

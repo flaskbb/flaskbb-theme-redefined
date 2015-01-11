@@ -26,55 +26,7 @@
         <div class="top-navigation clearfix">
             {{ render_topic_pagination(posts, topic.url) }}
 
-        {% if current_user.is_authenticated() %}
-            <div class="btn-group postlink pull-right">
-                {% if current_user.is_tracking_topic(topic) %}
-                <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-tag">
-                    </span> Untrack Topic
-                </a>
-                {% else %}
-                <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
-                    <span class="fa fa-tag"></span> Track Topic
-                </a>
-                {% endif %}
-
-                {% if current_user|post_reply(topic) %}
-                <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
-                    <span class="fa fa-pencil"></span> Reply
-                </a>
-                {% endif %}
-            </div>
-        {% endif %}
-            <div class="btn-group postlink pull-right">
-            {% if current_user|delete_topic(topic) %}
-                <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-danger">
-                    <span class="fa fa-trash-o"></span> Delete Topic
-                </a>
-            {% endif %}
-            {% if current_user|can_moderate(topic) %}
-                {% if not topic.locked %}
-                    <a href="{{ url_for('forum.lock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
-                        <span class="fa fa-lock"></span> Lock Topic
-                    </a>
-                {% else %}
-                    <a href="{{ url_for('forum.unlock_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-warning">
-                        <span class="fa fa-unlock"></span> Unlock Topic
-                    </a>
-                {% endif %}
-
-                {% if not topic.important %}
-                    <a href="{{ url_for('forum.highlight_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-success">
-                            <span class="fa fa-star"></span> Highlight Topic
-                </a>
-                {% else %}
-                    <a href="{{ url_for('forum.trivialize_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-success">
-                        <span class="fa fa-star-o"></span> Trivialize Topic
-                </a>
-                {% endif %}
-
-            {% endif %}
-            </div>
-
+            {% include theme("forum/topic_controls.html") %}
         </div>
 
 
@@ -86,6 +38,8 @@
                 <!-- Registered User -->
                 {% if post.user_id %}
                 <div class="author-name"><h4><a href="{{ user.url }}">{{ user.username }}</a></h4></div>
+                <div class="author-{%- if user|is_online -%}online{%- else -%}offline{%- endif -%}"></div>
+
                 <div class="author-title"><h5>{{ user.primary_group.name }}</h5></div>
 
                 {% if user.avatar %}
@@ -98,12 +52,6 @@
                     {% if current_user.is_authenticated() and post.user_id %}
                     <a href="{{ url_for('user.new_message') }}?to_user={{ user.username }}">PM</a>
                     {% endif %}
-
-                    {%- if user|is_online %}
-                    <div class="author-online"></div>
-                    {%- else %}
-                    <div class="author-offline"> </div>
-                    {%- endif %}
                 </div>
                 {% if user.website %}
                 <div class="author-field author-website"><a href="{{ user.website }}" rel="nofollow">Website</a></div>
@@ -198,7 +146,7 @@
         <div id="brdbottom">
             <div class="inbox">
                 <div class="pagepost clearfix">
-                    {{ render_pagination(posts, topic.url) }}
+                    {{ render_pagination(posts, topic.url, ul_class="pagination pagelink pull-left") }}
 
                 {% if current_user.is_authenticated() %}
                     <div class="btn-group postlink pull-right">
@@ -238,7 +186,7 @@
 
         <div id="quickpost" class="post post-bg clearfix">
             <div class="author-box col-md-2 col-sm-2 col-xs-2">
-                <div class="author-name"><h4>Quick reply</h4></div>
+                <div class="author-name"><h4>Quick Reply</h4></div>
             </div>
             <div class="post-box col-md-10 col-sm-10 col-xs-10">
                 <div class="post-content reply-content">

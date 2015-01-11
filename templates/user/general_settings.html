@@ -18,14 +18,9 @@
 
                 <div class="profile-language col-md-6 col-sm-6 col-xs-12">
                     <h4>Language</h4>
-                    If you want to use this Forum in another Language, just choose one from the select field below. <strong>Not implemented yet.</strong>
-                    <div class="form-group">
-                        <label for="disabledSelect">Language</label>
-                        <select id="disabledSelect" class="form-control" disabled>
-                            <option value="en">English</option>
-                            <option value="de">Deutsch</option>
-                        </select>
-                    </div>
+                    <p>If you want to use this Forum in another Language, just choose one from the select field below.</p>
+
+                    {{ render_field(form.language, div_class='None') }}
                 </div>
             </div>
 

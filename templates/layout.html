@@ -86,7 +86,7 @@
                     {% if current_user and current_user.is_authenticated() %}
 
                         {% if current_user|is_admin_or_moderator %}
-                            {{ topnav(endpoint='management.overview', name='Administration', icon='fa fa-cog') }}
+                            {{ topnav(endpoint='management.overview', name=_('Management'), icon='fa fa-cog') }}
                         {% endif %}
 
                         {{ topnav(endpoint="auth.logout", name="Logout", icon="fa fa-power-off") }}
