@@ -18,7 +18,7 @@
             <div class="author-field author-registered">Joined: {{ message.from_user.date_joined|format_date('%b %d %Y') }}</div>
             <div class="author-field author-posts">Posts: {{ message.from_user.post_count }}</div>
             <div class="author-field author-email">
-                <a href="{{ url_for('user.new_message') }}?to_user={{ message.from_user.username }}">PM</a>
+                <a href="{{ url_for('user.new_message') }}?to_user={{ message.from_user.username }}">{% trans %}PM{% endtrans %}</a>
 
                 {%- if message.from_user|is_online %}
                 <div class="author-online"></div>
@@ -27,12 +27,12 @@
                 {%- endif %}
             </div>
             {% if message.from_user.website %}
-            <div class="author-field author-website"><a href="{{ message.from_user.website }}" rel="nofollow">Website</a></div>
+            <div class="author-field author-website"><a href="{{ message.from_user.website }}" rel="nofollow">{% trans %}Website{% endtrans %}</a></div>
             {% endif %}
 
             {% else %}
-            <div class="author-name"><h4>[deleted]</h4></div>
-            <div class="author-title"><h5>Guest</h5></div>
+            <div class="author-name"><h4>[{% trans %}deleted{% endtrans %}]</h4></div>
+            <div class="author-title"><h5>{% trans %}Guest{% endtrans %}</h5></div>
             {% endif %}
         </div>
 

@@ -1,18 +1,18 @@
-{% set page_title = "New Topic" %}
+{% set page_title = _("New Topic") %}
 {% set active_forum_nav=True %}
 
 {% extends theme("layout.html") %}
 {% block content %}
-{% from theme("macros.html") import render_input_field, render_quickreply, render_boolean_field %}
+{% from theme("macros.html") import render_input_field, render_quickreply, render_boolean_field, render_submit_field %}
 
 <div id="brdmain">
 
     <div id="brdtop">
         <div class="inbox clearfix">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
                 <li><a href="{{ forum.url }}">{{ forum.title }}</a></li>
-                <li class="active">New Topic</li>
+                <li class="active">{% trans %}New Topic{% endtrans %}</li>
             </ul>
         </div>
     </div>
@@ -37,10 +37,10 @@
                     <div class="author-avatar"><img src="{{ current_user.avatar }}" width="100" height="100" alt=""></div>
                     {% endif %}
 
-                    <div class="author-field author-registered">Joined: {{ current_user.date_joined|format_date('%b %d %Y') }}</div>
-                    <div class="author-field author-posts">Posts: {{ current_user.post_count }}</div>
+                    <div class="author-field author-registered">{% trans %}Joined{% endtrans %}: {{ current_user.date_joined|format_date('%b %d %Y') }}</div>
+                    <div class="author-field author-posts">{% trans %}Posts{% endtrans %}: {{ current_user.post_count }}</div>
                     {% if current_user.website %}
-                    <div class="author-field author-website"><a href="{{ current_user.website }}" rel="nofollow">Website</a></div>
+                    <div class="author-field author-website"><a href="{{ current_user.website }}" rel="nofollow">{% trans %}Website{% endtrans %}</a></div>
                     {% endif %}
                 </div>
 
@@ -57,8 +57,8 @@
                                 {{ render_boolean_field(form.track_topic) }}
                             </div>
                             <div class="text-right col-md-4">
-                                <button type="submit" class="btn btn-success" name="button" value="reply">Reply</button>
-                                <button type="submit" class="btn btn-success" name="button" value="preview">Preview</button>
+                                {{ render_submit_field(form.submit) }}
+                                {{ render_submit_field(form.preview) }}
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                 <div class="post-preview">
                     <div class="post-box col-md-10 col-md-offset-2">
                         <div class="post-meta clearfix">
-                            <div class="pull-left"><h4>Post Preview</h4></div>
+                            <div class="pull-left"><h4>{% trans %}Preview{% endtrans %}</h4></div>
                         </div>
                         <div class="post-content">
                             {% autoescape false %}

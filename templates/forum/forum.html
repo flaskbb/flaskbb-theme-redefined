@@ -11,7 +11,7 @@
     <div id="brdtop">
         <div class="inbox clearfix">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
                 <li><a href="{{ forum.category.url }}">{{ forum.category.title }}</a></li>
                 <li class="active">{{ forum.title }}</li>
             </ul>
@@ -23,17 +23,17 @@
 
                 <div class="btn-group postlink pull-right">
                     <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
-                        <span class="fa fa-check"></span> Mark as Read
+                        <span class="fa fa-check"></span> {% trans %}Mark as Read{% endtrans %}
                     </a>
 
                     {% if forum.locked %}
                     <span class="btn btn-primary">
-                        <span class="fa fa-lock"></span> Locked
+                        <span class="fa fa-lock"></span> {% trans %}Locked{% endtrans %}
                     </span>
                     {% else %}
 
                     <a href="{{ url_for('forum.new_topic', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-primary">
-                        <span class="fa fa-pencil"></span> New Topic
+                        <span class="fa fa-pencil"></span> {% trans %}New Topic{% endtrans %}
                     </a>
 
                     {% endif %}
@@ -51,10 +51,10 @@
         <h2 class="forum-title"><span>{{ forum.title }}</span></h2>
 
         <div class="row vfx-header">
-            <div class="col-md-6 col-sm-6 col-xs-6">Topic</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">Replies</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">Views</div>
-            <div class="col-md-4 col-sm-4 col-xs-4">Last post</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">{% trans %}Topic{% endtrans %}</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">{% trans %}Replies{% endtrans %}</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">{% trans %}Views{% endtrans %}</div>
+            <div class="col-md-4 col-sm-4 col-xs-4">{% trans %}Last Post{% endtrans %}</div>
         </div>
 
         {% for topic, topicread in topics.items %}
@@ -79,18 +79,24 @@
 
                 <h4 class="topic-title">
                     <a href="{{ topic.url }}">{{ topic.title }}</a>
-                    <span class="byuser">by <a href="{{ topic.user.url }}">{{ topic.user.username }}</a></span>
+                    <span class="byuser">{% trans %}by{% endtrans %}
+                    {% if topic.user_id %}
+                        <a href="{{ topic.user.url }}">{{ topic.user.username }}</a>
+                    {% else %}
+                        {{ topic.username }}
+                    {% endif %}
+                    </span>
                     <span class="pagestext">{{ topic_pages(topic, flaskbb_config["POSTS_PER_PAGE"]) }}</span>
                 </h4>
             </div>
             <div class="topic-replies col-md-1 col-sm-1 col-xs-1">{{ topic.post_count }}</div>
             <div class="topic-views col-md-1 col-sm-1 col-xs-1">{{ topic.views }}</div>
             <div class="topic-last-post col-md-4 col-sm-4 col-xs-4"><a href="{{ topic.last_post.url }}">{{ topic.last_post.date_created|time_since }}</a>
-                <span class="byuser">
+                <span class="byuser">{% trans %}by{% endtrans %}
                 {% if topic.last_post.user_id %}
-                    by <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a>
+                    <a href="{{ topic.last_post.user.url }}">{{ topic.last_post.user.username }}</a>
                 {% else %}
-                    by {{ topic.last_post.username }}
+                    {{ topic.last_post.username }}
                 {% endif %}
                 </span>
             </div>
@@ -98,7 +104,7 @@
         {% else %}
 
         <div class="row vfx-content">
-            <div class="col-md-6 col-sm-6 col-xs-6">No Topics.</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">{% trans %}No Topics.{% endtrans %}</div>
             <div class="topic-replies col-md-1 col-sm-1 col-xs-1">-</div>
             <div class="topic-views col-md-1 col-sm-1 col-xs-1">-</div>
             <div class="topic-last-post col-md-4 col-sm-4 col-xs-4">-</div>
@@ -117,17 +123,17 @@
 
                 <div class="btn-group postlink pull-right">
                     <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
-                        <span class="fa fa-check"></span> Mark as Read
+                        <span class="fa fa-check"></span> {% trans %}Mark as Read{% endtrans %}
                     </a>
 
                     {% if forum.locked %}
                     <span class="btn btn-primary">
-                        <span class="fa fa-lock"></span> Locked
+                        <span class="fa fa-lock"></span> {% trans %}Locked{% endtrans %}
                     </span>
                     {% else %}
 
                     <a href="{{ url_for('forum.new_topic', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-primary">
-                        <span class="fa fa-pencil"></span> New Topic
+                        <span class="fa fa-pencil"></span> {% trans %}New Topic{% endtrans %}
                     </a>
 
                     {% endif %}
@@ -136,7 +142,7 @@
                 {% endif %}
             </div>
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
                 <li><a href="{{ forum.category.url }}">{{ forum.category.title }}</a></li>
                 <li class="active">{{ forum.title }}</li>
             </ul>

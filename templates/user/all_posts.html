@@ -8,9 +8,9 @@
     <div id="brdtop">
         <div class="inbox clearfix">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
                 <li ><a href="{{ user.url }}">{{ user.username }}</a></li>
-                <li class="active">All Posts</li>
+                <li class="active">{% trans %}All Posts{% endtrans %}</li>
             </ul>
 
             <div class="pagepost clearfix">
@@ -22,11 +22,11 @@
     <!-- Middle -->
     <div id="vf" class="vfx">
         <h2 class="forum-title">
-            <span>All Posts created by <a href="{{ user.url }}">{{ user.username }}</a></span>
+            <span>{% trans user=user.username %}All Posts created by {{user}}{% endtrans %}</span>
         </h2>
 
         <div class="row vfx-header">
-            <div class="col-md-9 col-sm-9 col-xs-9">Posts</div>
+            <div class="col-md-9 col-sm-9 col-xs-9">{% trans %}Posts{% endtrans %}</div>
         </div>
 
         {% for post in posts.items %}
@@ -49,7 +49,7 @@
         {% else %}
 
         <div class="row vfx-content">
-            <div class="col-md-9 col-sm-9 col-xs-9">No Posts.</div>
+            <div class="col-md-9 col-sm-9 col-xs-9">{% trans %}No Posts.{% endtrans %}</div>
         </div>
 
         {% endfor %}

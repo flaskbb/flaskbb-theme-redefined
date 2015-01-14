@@ -1,4 +1,4 @@
-{% set page_title = "Sent Messages" %}
+{% set page_title = _("Sent Messages") %}
 
 {% extends theme("message/message_layout.html") %}
 {% block message_content %}
@@ -7,10 +7,10 @@
     <h2 class="forum-title"><span>{{ page_title }}</span></h2>
 
     <div class="row vfx-header">
-        <div class="col-md-2 col-sm-2 col-xs-2">To</div>
-        <div class="col-md-4 col-sm-4 col-xs-4">Subject</div>
-        <div class="col-md-2 col-sm-2 col-xs-2">Date</div>
-        <div class="col-md-4 col-sm-4 col-xs-4">Options</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">{% trans %}To{% endtrans %}</div>
+        <div class="col-md-4 col-sm-4 col-xs-4">{% trans %}Subject{% endtrans %}</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">{% trans %}Date{% endtrans %}</div>
+        <div class="col-md-4 col-sm-4 col-xs-4">{% trans %}Options{% endtrans %}</div>
     </div>
 
 
@@ -22,7 +22,7 @@
             {% if message.to_user %}
             <a href="{{ url_for('user.profile', username=message.to_user.username) }}">{{ message.to_user.username }}</a>
             {% else %}
-            [deleted]
+            [{% trans %}deleted{% endtrans %}]
             {% endif %}
         </div>
         <div class="col-md-4 col-sm-4 col-xs-4">
@@ -32,12 +32,12 @@
             {{ message.date_created|time_since }}
         </div>
         <div class="col-md-3 col-sm-3 col-xs-3">
-            <a href="{{ url_for('user.move_message', message_id=message.id) }}">Delete</a>
+            <a href="{{ url_for('user.move_message', message_id=message.id) }}">{% trans %}Delete{% endtrans %}</a>
         </div>
     </div>
     {% else %}
     <div class="row vfx-content">
-        <div class="col-md-4 col-sm-4 col-xs-4">This message folder is empty.</div>
+        <div class="col-md-4 col-sm-4 col-xs-4">{% trans %}This message folder is empty.{% endtrans %}</div>
         <div class="col-md-2 col-sm-2 col-xs-2"></div>
         <div class="col-md-2 col-sm-2 col-xs-2">-</div>
         <div class="col-md-4 col-sm-4 col-xs-4">-</div>

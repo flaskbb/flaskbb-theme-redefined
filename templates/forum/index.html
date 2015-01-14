@@ -9,19 +9,18 @@
 <div id="brdstats" class="clearfix">
     <div class="box">
         <div class="users-online col-xs-12 col-sm-12 col-md-6 pull-left">
-            <h5> Active Users</h5>
+            <h5> {% trans %}Online Users{% endtrans %}</h5>
             <p>
-                <span>There are currently {% if config["REDIS_ENABLED"] %}{{ online_users+online_guests }}{% else %}{{ online_users }}{% endif %} user online.</span>
-                <br />
-                <span>{% if config["REDIS_ENABLED"] %}{{ online_users }} Member and {{ online_guests }} Guest.{% endif %}&nbsp;</span>
+                <span>{% trans %}Registered users online{% endtrans %}: <strong>{{ online_users }}</strong> </span><br />
+                <span>{% if config["REDIS_ENABLED"] %}{% trans %}Guests online{% endtrans %}: <strong>{{ online_guests }}</strong>{% endif %}&nbsp;</span>
             </p>
         </div>
         <div class="forum-stats col-xs-12 col-sm-12 col-md-6 pull-right text-right">
-            <h5> FlaskBB Forum Statistics</h5>
+            <h5> {% trans %}Board Statistics{% endtrans %}</h5>
             <p>
-                <span>Topics: <strong>{{ topic_count }}</strong></span>
-                <span>Posts: <strong>{{ post_count }}</strong></span>
-                <span>Members: <strong>{{ user_count }}</strong></span>
+                <span>{% trans %}Topics{% endtrans %}: <strong>{{ topic_count }}</strong></span>
+                <span>{% trans %}Posts{% endtrans %}: <strong>{{ post_count }}</strong></span>
+                <span>{% trans %}Users{% endtrans %}: <strong>{{ user_count }}</strong></span>
                 <br />
                 <span>Welcome to our newest member, {% if newest_user %}<a href="{{ newest_user.url }}">{{ newest_user.username }}</a>{% else %}No users{% endif %}</span>
             </p>

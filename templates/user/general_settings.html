@@ -10,22 +10,22 @@
 
             <div class="row">
                 <div class="profile-theme col-md-6 col-sm-6 col-xs-12">
-                    <h4>Theme</h4>
-                    <p>You can personalize the theme in which you want to use the Forum here. Just choose one of the available themes below.</p>
+                    <h4>{% trans %}Theme{% endtrans %}</h4>
+                    <p>{% trans %}You can personalize the theme in which you want to use the Forum here. Just choose one of the available themes below.{% endtrans %}</p>
 
                     {{ render_field(form.theme, div_class='None') }}
                 </div>
 
                 <div class="profile-language col-md-6 col-sm-6 col-xs-12">
-                    <h4>Language</h4>
-                    <p>If you want to use this Forum in another Language, just choose one from the select field below.</p>
+                    <h4>{% trans %}Language{% endtrans %}</h4>
+                    <p>{% trans %}If you want to use this Forum in another Language, just choose one from the select field below.{% endtrans %}</p>
 
                     {{ render_field(form.language, div_class='None') }}
                 </div>
             </div>
 
             <div class="form-group row">
-                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success">{% trans %}Save{% endtrans %}</button>
             </div>
 
         </form>

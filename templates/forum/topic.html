@@ -1,9 +1,9 @@
-{% set page_title = topic.title ~ " - Topic" %}
+{% set page_title = _("%(title)s - Topic", title=topic.title) %}
 {% set active_forum_nav=True %}
 
 {% extends theme("layout.html") %}
 {% block content %}
-{% from theme('macros.html') import render_pagination, render_topic_pagination, render_quickreply %}
+{% from theme('macros.html') import render_pagination, render_topic_pagination, render_quickreply, render_submit_field %}
 
 
 <div id="brdmain">
@@ -11,7 +11,7 @@
     <div id="brdtop">
         <div class="inbox clearfix">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
                 <li><a href="{{ topic.forum.category.url }}">{{ topic.forum.category.title }}</a></li>
                 <li><a href="{{ topic.forum.url }}">{{ topic.forum.title }}</a></li>
                 <li class="active">{{ topic.title }}</li>
@@ -46,20 +46,20 @@
                     <div class="author-avatar"><img src="{{ user.avatar }}" width="100" height="100" alt=""></div>
                 {% endif %}
 
-                <div class="author-field author-registered">Joined: {{ user.date_joined|format_date('%b %d %Y') }}</div>
-                <div class="author-field author-posts">Posts: {{ user.post_count }}</div>
+                <div class="author-field author-registered">{% trans %}Joined{% endtrans %}: {{ user.date_joined|format_date('%b %d %Y') }}</div>
+                <div class="author-field author-posts">{% trans %}Posts{% endtrans %}: {{ user.post_count }}</div>
                 <div class="author-field author-email">
                     {% if current_user.is_authenticated() and post.user_id %}
-                    <a href="{{ url_for('user.new_message') }}?to_user={{ user.username }}">PM</a>
+                    <a href="{{ url_for('user.new_message') }}?to_user={{ user.username }}">{% trans %}PM{% endtrans %}</a>
                     {% endif %}
                 </div>
                 {% if user.website %}
-                <div class="author-field author-website"><a href="{{ user.website }}" rel="nofollow">Website</a></div>
+                <div class="author-field author-website"><a href="{{ user.website }}" rel="nofollow">{% trans %}Website{% endtrans %}</a></div>
                 {% endif %}
 
                 {% else %}
                 <div class="author-name"><h4><a href="{{ user.url }}">{{ post.username }}</a></h4></div>
-                <div class="author-title"><h5>Guest</h5></div>
+                <div class="author-title"><h5>{% trans %}Guest{% endtrans %}</h5></div>
                 {% endif %}
             </div>
 
@@ -152,17 +152,17 @@
                     <div class="btn-group postlink pull-right">
                         {% if current_user.is_tracking_topic(topic) %}
                         <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
-                            </span> Untrack Topic
+                            </span> {% trans %}Untrack Topic{% endtrans %}
                         </a>
                         {% else %}
                         <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
-                            <span class="fa fa-star"></span> Track Topic
+                            <span class="fa fa-star"></span> {% trans %}Track Topic{% endtrans %}
                         </a>
                         {% endif %}
 
                         {% if current_user|post_reply(topic) %}
                         <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
-                            <span class="fa fa-pencil"></span> Reply
+                            <span class="fa fa-pencil"></span> {% trans %}Reply{% endtrans %}
                         </a>
                         {% endif %}
                     </div>
@@ -170,7 +170,7 @@
                 </div>
 
                 <ul class="breadcrumb">
-                    <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
+                    <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
                     <li><a href="{{ topic.forum.category.url }}">{{ topic.forum.category.title }}</a></li>
                     <li><a href="{{ topic.forum.url }}">{{ topic.forum.title }}</a></li>
                     <li class="active">{{ topic.title }}</li>
@@ -186,7 +186,7 @@
 
         <div id="quickpost" class="post post-bg clearfix">
             <div class="author-box col-md-2 col-sm-2 col-xs-2">
-                <div class="author-name"><h4>Quick Reply</h4></div>
+                <div class="author-name"><h4>{% trans %}Quick Reply{% endtrans %}</h4></div>
             </div>
             <div class="post-box col-md-10 col-sm-10 col-xs-10">
                 <div class="post-content reply-content">
@@ -200,7 +200,7 @@
                     <span class="label label-danger">[img] tag</a></span>
                     <span class="label label-success">Smilies</a></span>
                 </div>
-                <input class="btn btn-success pull-right" type="submit" value="Submit" />
+                {{ render_submit_field(form.submit, input_class="btn btn-success pull-right") }}
             </p>
         </div>
     </form>

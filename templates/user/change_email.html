@@ -10,16 +10,13 @@
                 {{ form.hidden_tag() }}
                 <div class="profile-password col-md-12 col-sm-12 col-xs-12">
 
-                    <h4>Change E-Mail Address</h4>
+                    <h4>{% trans %}Change E-Mail Address{% endtrans %}</h4>
 
                     {{ horizontal_field(form.old_email, label_class="col-lg-3", div_class="col-lg-5") }}
                     {{ horizontal_field(form.new_email, label_class="col-lg-3", div_class="col-lg-5") }}
                     {{ horizontal_field(form.confirm_new_email, label_class="col-lg-3", div_class="col-lg-5") }}
+                    {{ horizontal_field(form.submit) }}
                 </div>
-            </div>
-
-            <div class="form-group row">
-                <button type="submit" class="btn btn-success">Save</button>
             </div>
         </form>
     </div>

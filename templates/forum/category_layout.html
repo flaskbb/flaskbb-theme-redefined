@@ -5,10 +5,10 @@
         <h2 class="category-title">{{ category.title }} <a id="idxpend-1" class="idxpend pull-right" href="{{ category.url }}"><span class="xpend"></span></a></h2>
 
         <div class="row idx-header">
-            <div class="col-md-6 col-sm-6 col-xs-6">Forum</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">Topics</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">Posts</div>
-            <div class="col-md-4 col-sm-4 col-xs-4">Last post</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">{% trans %}Forum{% endtrans %}</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">{% trans %}Topics{% endtrans %}</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">{% trans %}Posts{% endtrans %}</div>
+            <div class="col-md-4 col-sm-4 col-xs-4">{% trans %}Last post{% endtrans %}</div>
         </div>
         {% for forum, forumsread in forums %}
 
@@ -18,7 +18,7 @@
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="idx-icon idx-icon-link pull-left"></div>
                 <div class="tclcon">
-                    <h4 class="forum-title"><span class="redirtext">Link to:</span> <a href="{{ forum.url }}">{{ forum.title }}</a></h4>
+                    <h4 class="forum-title"><span class="redirtext">{% trans %}Link to{% endtrans %}:</span> <a href="{{ forum.url }}">{{ forum.title }}</a></h4>
                     <div class="forum-description">{{ forum.description|markup|safe }}</div>
                 </div>
             </div>
@@ -44,9 +44,14 @@
                 <div class="tclcon">
                     <h4 class="forum-title"><a href="{{ forum.url }}">{{ forum.title }}</a></h4>
                     <div class="forum-description">{{ forum.description|markup|safe }}</div>
+                    {% if forum.show_moderators %}
                     <p class="moderator-list">
-                        (<em>Moderated by</em> <a href="#">Cyrano</a>, <a href="#">Cyrano</a>)
+                        {% trans %}Moderators{% endtrans %}:
+                        {% for moderator in forum.moderators %}
+                        <a href="{{ url_for('user.profile', username=moderator.username) }}">{{ moderator.username }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
                     </p>
+                    {% endif %}
                 </div>
             </div>
             <div class="forum-topics col-md-1 col-sm-1 col-xs-1">{{ forum.topic_count }}</div>
@@ -57,7 +62,7 @@
                 <a href="{{ forum.last_post_url }}" title="{{ forum.last_post_title }}">
                     <strong>{{ forum.last_post_title|crop_title }}</strong>
                 </a>
-                <span class="byuser">by
+                <span class="byuser">{% trans %}by{% endtrans %}
                     {% if forum.last_post_username %}
                         <a href="{{ url_for('user.profile', username=forum.last_post_username) }}">{{ forum.last_post_username }}</a>
                     {% else %}
@@ -69,7 +74,7 @@
                 </span>
 
                 {% else %}
-                No posts
+                {% trans %}No posts.{% endtrans %}
                 {% endif %}
             </div>
         </div>

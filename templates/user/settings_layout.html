@@ -15,11 +15,11 @@
         </div>
 
         <ul class="nav nav-tabs profile-edit-tabs" id="profile-edit-tabs">
-            {{ topnav('user.settings', 'General', id="tab-general", icon="fa fa-cog") }}
-            {{ topnav('user.change_user_details', 'User Details', id="tab-userdetails", icon="fa fa-user") }}
-            {{ topnav('user.change_email', 'E-Mail', id="tab-email", icon="fa fa-envelope") }}
-            {{ topnav('user.change_password', 'Password', id="tab-password", icon="fa fa-asterisk") }}
-            <li class="pull-right"><a href="{{ url_for('forum.index') }}" class="tip">Back to the forum</a></li>
+            {{ topnav('user.settings', _('General'), id="tab-general", icon="fa fa-cog") }}
+            {{ topnav('user.change_user_details', _('User Details'), id="tab-userdetails", icon="fa fa-user") }}
+            {{ topnav('user.change_email', _('E-Mail'), id="tab-email", icon="fa fa-envelope") }}
+            {{ topnav('user.change_password', _('Password'), id="tab-password", icon="fa fa-asterisk") }}
+            <li class="pull-right"><a href="{{ url_for('forum.index') }}" class="tip">{% trans %}Back to the forum{% endtrans %}</a></li>
         </ul>
 
     </div>

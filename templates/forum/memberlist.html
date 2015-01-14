@@ -1,4 +1,4 @@
-{% set page_title = "Memberlist" %}
+{% set page_title = _("Memberlist") %}
 
 {% extends theme("layout.html") %}
 {% block content %}
@@ -9,15 +9,15 @@
   <div id="brdtop">
     <div class="inbox clearfix">
       <ul class="breadcrumb">
-          <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-          <li class="active">User list</li>
+          <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
+          <li class="active">{% trans %}Memberlist{% endtrans %}</li>
       </ul>
     </div>
   </div>
 
   <div id="vt" class="vtx">
 
-    <h2 class="topic-title"><span>User list</span></h2>
+    <h2 class="topic-title"><span>{% trans %}Memberlist{% endtrans %}</span></h2>
 
     <div class="top-navigation clearfix">
         {{ render_topic_pagination(users, url_for('forum.memberlist')) }}
@@ -73,8 +73,8 @@
       </div>
 
       <ul class="breadcrumb">
-          <li><a href="{{ url_for('forum.index') }}">Forum</a></li>
-          <li class="active">Memberlist</li>
+          <li><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
+          <li class="active">{% trans %}Memberlist{% endtrans %}</li>
       </ul>
     </div>
   </div>
