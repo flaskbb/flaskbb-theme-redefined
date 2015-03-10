@@ -222,6 +222,11 @@ a, a:hover, a:focus, a:active {
     content: '\2713';
 }
 
+.pagepost .pagination {
+    margin: 0;
+    padding-top: 5px;
+}
+
 .top-navigation {
     background: #fff;
     border: 1px solid #cad7e1;
@@ -757,6 +762,7 @@ a, a:hover, a:focus, a:active {
 
 .post-menu .btn {
     color: #a5acb3;
+    background: none;
     padding: 0.5em;
     text-align: right;
     float: right;
@@ -1420,4 +1426,8 @@ a, a:hover, a:focus, a:active {
   .sidebar.affix {
     width: 263px;
   }
+}
+
+.inline-form {
+    display: inline;
 }

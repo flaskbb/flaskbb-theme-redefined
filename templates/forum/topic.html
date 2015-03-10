@@ -109,7 +109,7 @@
 
                     {% if current_user|post_reply(topic) %}
                     <!-- Quick quote -->
-                        <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="pid{{ post.id }}" title="" data-original-title="Quote this post"></a>
+                        <a href="#" class="tip btn post-quote quote_btn" data-placement="top" data-post-id="{{ post.id }}" title="" data-original-title="Quote this post"></a>
                     <!-- Full quote/reply -->
                         <a href="{{ url_for('forum.reply_post', topic_id=topic.id, post_id=post.id) }}" class="tip btn post-reply-all" data-placement="top" title="" data-original-title="Full Reply"></a>
                     {% endif %}
@@ -120,12 +120,18 @@
                     {% endif %}
                     {% if topic.first_post_id == post.id %}
                         {% if current_user|delete_topic(topic) %}
-                        <a href="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this topic"></a>
+                        <form class="inline-form" method="post" action="{{ url_for('forum.delete_topic', topic_id=topic.id, slug=topic.slug) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <button class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this topic"></button>
+                        </form>
                         {% endif %}
                     {% else %}
                         {% if current_user|delete_post(post) %}
                     <!-- Delete Post -->
-                        <a href="{{ url_for('forum.delete_post', post_id=post.id) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></a>
+                        <form class="inline-form" method="post" action="{{ url_for('forum.delete_post', post_id=post.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <button  class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></button>
+                        </form>
                         {% endif %}
 
                     {% endif %}
@@ -148,25 +154,31 @@
                 <div class="pagepost clearfix">
                     {{ render_pagination(posts, topic.url, ul_class="pagination pagelink pull-left") }}
 
-                {% if current_user.is_authenticated() %}
-                    <div class="btn-group postlink pull-right">
-                        {% if current_user.is_tracking_topic(topic) %}
-                        <a href="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default"><span class="fa fa-star">
-                            </span> {% trans %}Untrack Topic{% endtrans %}
-                        </a>
-                        {% else %}
-                        <a href="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-default">
-                            <span class="fa fa-star"></span> {% trans %}Track Topic{% endtrans %}
-                        </a>
-                        {% endif %}
+                    {% if current_user.is_authenticated() %}
+                        <div class="postlink pull-right">
+                            {% if current_user.is_tracking_topic(topic) %}
+                            <form class="inline-form" method="post" action="{{ url_for('forum.untrack_topic', topic_id=topic.id, slug=topic.slug) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <button class="btn btn-default">
+                                    <span class="fa fa-tag" aria-hidden="true"></span> {% trans %}Untrack Topic{% endtrans %}
+                                </button>
+                            </form>
+                            {% else %}
+                            <form class="inline-form" method="post" action="{{ url_for('forum.track_topic', topic_id=topic.id, slug=topic.slug) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <button class="btn btn-default">
+                                    <span class="fa fa-tag" aria-hidden="true"></span> {% trans %}Track Topic{% endtrans %}
+                                </button>
+                            </form>
+                            {% endif %}
 
-                        {% if current_user|post_reply(topic) %}
-                        <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
-                            <span class="fa fa-pencil"></span> {% trans %}Reply{% endtrans %}
-                        </a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                            {% if current_user|post_reply(topic) %}
+                            <a href="{{ url_for('forum.new_post', topic_id=topic.id, slug=topic.slug) }}" class="btn btn-primary">
+                                <span class="fa fa-pencil"></span> {% trans %}Reply{% endtrans %}
+                            </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
 
                 <ul class="breadcrumb">

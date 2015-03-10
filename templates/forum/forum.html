@@ -21,10 +21,13 @@
 
                 {% if current_user|post_topic(forum) %}
 
-                <div class="btn-group postlink pull-right">
-                    <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
-                        <span class="fa fa-check"></span> {% trans %}Mark as Read{% endtrans %}
-                    </a>
+                <div class="postlink pull-right">
+                    <form class="inline-form" method="post" action="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button class="btn btn-default">
+                            <span class="fa fa-check"></span> {% trans %}Mark as Read{% endtrans %}
+                        </button>
+                    </form>
 
                     {% if forum.locked %}
                     <span class="btn btn-primary">
@@ -121,10 +124,13 @@
 
                 {% if current_user|post_topic(forum) %}
 
-                <div class="btn-group postlink pull-right">
-                    <a href="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}" class="btn btn-default">
-                        <span class="fa fa-check"></span> {% trans %}Mark as Read{% endtrans %}
-                    </a>
+                <div class="postlink pull-right">
+                    <form class="inline-form" method="post" action="{{ url_for('forum.markread', forum_id=forum.id, slug=forum.slug) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button class="btn btn-default">
+                            <span class="fa fa-check"></span> {% trans %}Mark as Read{% endtrans %}
+                        </button>
+                    </form>
 
                     {% if forum.locked %}
                     <span class="btn btn-primary">
