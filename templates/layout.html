@@ -19,9 +19,9 @@
 
         {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ theme_static('style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" >
         <link rel="stylesheet" href="{{ url_for('static', filename='css/code.css') }}">
+        <link rel="stylesheet" href="{{ theme_static('style.css') }}">
         {% endblock %}
 
         <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
@@ -42,9 +42,13 @@
                 <div id="brdmenu">
 
                 {% if current_user.is_authenticated() %}
+                    {% if current_user.avatar %}
                     <div class="avatar">
                         <img src="{{ current_user.avatar }}" alt="" />
                     </div>
+                    {% else %}
+                    <div class="avatar"></div>
+                    {% endif %}
 
                     <nav class="menu">
 

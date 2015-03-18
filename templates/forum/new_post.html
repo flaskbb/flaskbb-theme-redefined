@@ -2,6 +2,12 @@
 {% set active_forum_nav=True %}
 
 {% extends theme("layout.html") %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-markdown.min.css') }}">
+    {{ super() }}
+{% endblock %}
+
 {% block content %}
 {% from theme("macros.html") import render_quickreply, render_boolean_field, render_submit_field %}
 
@@ -47,7 +53,7 @@
                         <div class="pull-right">#{{ topic.post_count+1 }}</div>
                     </div>
                     <div class="post-content new-post-content">
-                        {{ render_quickreply(form.content, div_class="new-topic-message", rows="12", cols="95") }}
+                        {{ render_quickreply(form.content, div_class="new-topic-message", rows="10", cols="95", placeholder="", **{'data-provide': 'markdown', 'data-autofocus': 'true', 'id': 'quickreply-editor'}) }}
                     </div>
                     <div class="post-footer">
                         <div class="post-options">
@@ -56,7 +62,6 @@
                             </div>
                             <div class="text-right col-md-4">
                                 {{ render_submit_field(form.submit) }}
-                                {{ render_submit_field(form.preview) }}
                             </div>
                         </div>
                     </div>
@@ -82,4 +87,9 @@
 
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/marked.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-markdown.js') }}"></script>
 {% endblock %}
